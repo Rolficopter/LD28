@@ -9,14 +9,12 @@ function Player:initialize(world, x, y)
   Entity:initialize(world)
   
   self.body = love.physics.newBody(self.world, x, y, 'dynamic')
+  self.body:setFixedRotation(true)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
-
-  self.body:setFixedRotation(true)
+  self.texture = love.graphics.newImage('assets/textures/man.png')
 
   self.color = {255, 0, 0, 255}
-
-  self.texture = love.graphics.newImage('assets/textures/man.png')
 
   self.jumpWasPressed = false
 end
