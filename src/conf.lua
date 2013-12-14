@@ -21,7 +21,7 @@ Constants.MENU.GAME = 'game'
 
 Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0
-Constants.GRAVITY.Y = 9.81 * 5
+Constants.GRAVITY.Y = 9.81 * 3
 
 Constants.SIZES = {}
 Constants.SIZES.METER = 16
