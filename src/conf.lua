@@ -2,7 +2,7 @@ Constants = {}
 Constants.TITLE = "LD48"
 Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
-Constants.VERSION = "0.0.1"
+Constants.VERSION = "0.0.2"
 Constants.LOVE_VERSION = "0.8.0"
 
 Constants.ASSETS = {}
