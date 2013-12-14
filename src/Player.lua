@@ -13,6 +13,7 @@ function Player:initialize(world, x, y, inputSource)
   self.body:setFixedRotation(true)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
+  self.fixture:setFriction(self.fixture:getFriction() * 1.75)
   self.texture = love.graphics.newImage('assets/textures/man.png')
 
   self.color = { 255, 0, 0, 255 }
