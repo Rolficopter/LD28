@@ -9,7 +9,7 @@ function Game:initialize()
   Drawable:initialize()
   self.world = World:new()
   
-  self.color = { 255, 0, 0, 255 }
+  self.color = { 0, 0, 0, 255 }
   love.graphics.setBackgroundColor(self.color)
 end
 
