@@ -22,11 +22,20 @@ end
 
 function Player:update(dt)
   local direction = self.inputSource:getDirection()
+  local vX, vY = self.body:getLinearVelocity()
   
   if direction == InputSource.Direction.left then
-    self.body:applyForce(Constants.SIZES.PLAYER.LEFT, 0)
+    if vX > 0 then
+      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.LEFT, 0)
+    else
+      self.body:applyForce(Constants.SIZES.PLAYER.LEFT, 0)
+    end
   elseif direction == InputSource.Direction.right then
-    self.body:applyForce(Constants.SIZES.PLAYER.RIGHT, 0)
+    if vX < 0 then
+      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.RIGHT, 0)
+    else
+      self.body:applyForce(Constants.SIZES.PLAYER.RIGHT, 0)
+    end
   end
   
   if self.inputSource:shouldJump() then
