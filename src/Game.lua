@@ -8,7 +8,7 @@ Game = class('Game', Drawable)
 function Game:initialize()
   Drawable:initialize()
   self.menu = MenuManager:new()
-  self.menu:switchTo(Constants.MENU.GAME)
+  self.menu:switchTo(Constants.MENU.MAIN)
 end
 
 -- Update logic

@@ -7,4 +7,8 @@ function Menu:initialize()
   Drawable:initialize()
 end
 
+function Menu:switchToMenu(menu)
+  self.nextMenu = menu
+end
+
 return Menu

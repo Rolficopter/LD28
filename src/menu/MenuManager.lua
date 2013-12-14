@@ -28,6 +28,12 @@ end
 MenuManager.static.switchTo = switchTo
 
 function MenuManager:update(dt)
+  if self.currentMenu.nextMenu then
+    local nextMenu = self.currentMenu.nextMenu
+    self.currentMenu.nextMenu = nil
+    
+    self:switchTo(nextMenu)
+  end
   self.currentMenu:update(dt)
 end
 function MenuManager:render()
