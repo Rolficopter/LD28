@@ -4,6 +4,7 @@ local Entity = require 'Entity'
 
 Player = class('Player', Entity)
 
+-- Init logic
 function Player:initialize(world, x, y)
   Entity:initialize(world)
   

@@ -6,6 +6,7 @@ local Player = require 'Player'
 
 World = class('World', Drawable)
 
+-- Init logic
 local createTempWorld = function(self)
   self.ground = {}
   self.ground = Entity:new(self.world)
@@ -23,10 +24,12 @@ function World:initialize()
   createTempWorld(self)
 end
 
+-- Update logic
 function World:update(dt)
   self.world:update(dt)
 end
 
+-- Render logic
 function World:render()
   self.ground:render()
   self.player:render()
