@@ -18,12 +18,14 @@ function Player:initialize(world, x, y, inputSource)
   self.color = { 255, 0, 0, 255 }
 
   self.jumpWasPressed = false
+  self.hasFallen = false
 end
 
 function Player:update(dt)
   local direction = self.inputSource:getDirection()
   local vX, vY = self.body:getLinearVelocity()
   
+  -- X
   if direction == InputSource.Direction.left then
     if vX > 0 then
       self.body:applyLinearImpulse(Constants.SIZES.PLAYER.LEFT, 0)
@@ -38,8 +40,14 @@ function Player:update(dt)
     end
   end
   
+  -- Y
+  if vY < 0 then
+    self.hasFallen = true
+  end
   if self.inputSource:shouldJump() then
-    self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
+    if self.hasFallen then
+      self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
+    end
   end
 end
 
