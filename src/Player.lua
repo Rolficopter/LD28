@@ -2,8 +2,6 @@ local Constants = require 'conf'
 local class = require 'lib/middleclass'
 local Entity = require 'Entity'
 
-local KeyboardInpit = require 'input/KeyboardInput'
-
 Player = class('Player', Entity)
 
 -- Init logic
