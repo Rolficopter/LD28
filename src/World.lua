@@ -9,17 +9,14 @@ local atl = require 'lib/advanced-tiled-loader/loader'
 World = class('World', Drawable)
 
 function World:initialize()
+  -- load world
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
-  self.map = nil
-
-  self.collisionFields = {}
-
+  -- load map
   atl.path = 'assets/maps/'
-
+  self.map = nil
+  self.collisionFields = {}
   self:loadMap('Map.tmx')
-
-  
 end
 
 -- Load map
