@@ -2,11 +2,14 @@ local Constants = require 'conf'
 local class = require 'lib/middleclass'
 local Entity = require 'Entity'
 
+local KeyboardInpit = require 'input/KeyboardInput'
+
 Player = class('Player', Entity)
 
 -- Init logic
-function Player:initialize(world, x, y)
+function Player:initialize(world, x, y, inputSource)
   Entity:initialize(world)
+  self.inputSource = inputSource
   
   self.body = love.physics.newBody(self.world, x, y, 'dynamic')
   self.body:setFixedRotation(true)
@@ -20,18 +23,16 @@ function Player:initialize(world, x, y)
 end
 
 function Player:update(dt)
-  if love.keyboard.isDown("d") then
-    self.body:applyForce(5000, 0)
-  elseif love.keyboard.isDown("a") then
+  local direction = self.inputSource:getDirection()
+  
+  if direction == InputSource.Direction.left then
     self.body:applyForce(-5000, 0)
+  elseif direction == InputSource.Direction.right then
+    self.body:applyForce(5000, 0)
   end
-  if love.keyboard.isDown("w") and not self.jumpWasPressed then
+  
+  if self.inputSource:shouldJump() then
     self.body:applyLinearImpulse(0, -5000)
-    self.jumpWasPressed = true
-  elseif love.keyboard.isDown("w") then
-    self.jumpWasPressed = true
-  else
-    self.jumpWasPressed = false
   end
 end
 

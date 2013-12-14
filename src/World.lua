@@ -3,6 +3,7 @@ local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
+local KeyboardInput = require 'input/KeyboardInput'
 
 local atl = require 'lib/advanced-tiled-loader/loader'
 
@@ -38,7 +39,7 @@ function World:loadMap(name)
   -- place player at random spawnpoint
   playerLocationObject = self.map("SpawnPoints").objects[3]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y)
+  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardInput:new())
 end
 
 -- Update logic
