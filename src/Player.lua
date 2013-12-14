@@ -24,13 +24,13 @@ function Player:update(dt)
   local direction = self.inputSource:getDirection()
   
   if direction == InputSource.Direction.left then
-    self.body:applyForce(-5000, 0)
+    self.body:applyForce(Constants.SIZES.PLAYER.LEFT, 0)
   elseif direction == InputSource.Direction.right then
-    self.body:applyForce(5000, 0)
+    self.body:applyForce(Constants.SIZES.PLAYER.RIGHT, 0)
   end
   
   if self.inputSource:shouldJump() then
-    self.body:applyLinearImpulse(0, -5000)
+    self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
   end
 end
 
