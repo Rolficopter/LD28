@@ -1,7 +1,8 @@
+local Constants = require 'conf'
 local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
-local Constants = require 'conf'
+local Player = require 'Player'
 
 Game = class('Game', Drawable)
 
@@ -12,6 +13,8 @@ local createTempWorld = function(self)
   self.ground.body = love.physics.newBody(self.world, Constants.SCREEN.WIDTH / 2, Constants.SCREEN.HEIGHT - 50, 'static')
   self.ground.shape = love.physics.newRectangleShape(Constants.SCREEN.WIDTH * 2, 100)
   self.ground.fixture = love.physics.newFixture(self.ground.body, self.ground.shape)
+  
+  self.player = Player:new(self.world, 10 + Constants.SIZES.PLAYER.X / 2, 10 + Constants.SIZES.PLAYER.Y / 2)
 end
 local initWorld = function(self)
   love.physics.setMeter(Constants.SIZES.METER)
@@ -30,6 +33,7 @@ end
 -- Update logic
 local updateObjects = function(self, dt)
   self.ground:update(dt)
+  self.player:update(dt)
 end
 function Game:update(dt)
   self.world:update(dt)
@@ -40,6 +44,7 @@ end
 -- Render Logic
 local renderObjects = function(self)
   self.ground:render()
+  self.player:render()
 end
 function Game:render()
   renderObjects(self)
