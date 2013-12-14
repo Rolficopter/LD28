@@ -62,11 +62,18 @@ end
 -- Update logic
 function World:update(dt)
   self.world:update(dt)
+
+  self.player:update(dt)
 end
 
 -- Render logic
 function World:render()
+  local translateX = Constants.SCREEN.WIDTH / 2 - self.player.body:getX()
+  local translateY = Constants.SCREEN.HEIGHT / 2 - self.player.body:getY()
+
+  love.graphics.translate(translateX, translateY)
   if self.map then
+    self.map:autoDrawRange (translateX, translateY, 1, 0)
     self.map:draw()
   end
   

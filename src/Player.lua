@@ -15,4 +15,12 @@ function Player:initialize(world, x, y)
   self.color = {255, 0, 0, 255}
 end
 
+function Player:update(dt)
+  if love.keyboard.isDown("d") then
+    self.body:applyForce(400, 0)
+  elseif love.keyboard.isDown("a") then
+    self.body:applyForce(-400, 0)
+  end
+end
+
 return Player
