@@ -15,6 +15,10 @@ Constants.SCREEN.HEIGHT = 600
 Constants.SCREEN.FULLSCREEN = false
 Constants.SCREEN.VSYNC = true
 
+Constants.MENU = {}
+Constants.MENU.MAIN = 'main'
+Constants.MENU.GAME = 'game'
+
 Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0
 Constants.GRAVITY.Y = 9.81 * 5
