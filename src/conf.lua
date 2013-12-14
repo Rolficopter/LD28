@@ -12,7 +12,7 @@ Constants.SCREEN.VSYNC = true
 
 Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0
-Constants.GRAVITY.Y = 9.81
+Constants.GRAVITY.Y = 9.81 * 5
 
 Constants.SIZES = {}
 Constants.SIZES.METER = 16
