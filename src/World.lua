@@ -30,6 +30,8 @@ function World:initialize()
   atl.path = 'assets/maps/'
 
   self:loadMap('Map.tmx')
+
+  self.player = Player:new(self.world, 10 + Constants.SIZES.PLAYER.X / 2, 10 + Constants.SIZES.PLAYER.Y / 2)
 end
 
 -- Load map
@@ -50,7 +52,7 @@ function World:render()
   end
   
   --self.ground:render()
-  --self.player:render()
+  self.player:render()
 end
 
 return World

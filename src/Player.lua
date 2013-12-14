@@ -11,6 +11,8 @@ function Player:initialize(world, x, y)
   self.body = love.physics.newBody(self.world, x, y, 'dynamic')
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
+
+  self.color = {255, 0, 0, 255}
 end
 
 return Player
