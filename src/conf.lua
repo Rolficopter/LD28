@@ -14,6 +14,11 @@ Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0
 Constants.GRAVITY.Y = 9.81
 
+Constants.SIZES = {}
+Constants.SIZES.PLAYER = {}
+Constants.SIZES.PLAYER.X = 28
+Constants.SIZES.PLAYER.Y = 90
+
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
   t.title = Constants.TITLE .. " v" .. Constants.VERSION
