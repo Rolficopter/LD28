@@ -28,12 +28,32 @@ module.exports = function(grunt) {
           }
         ]
       }
+    },
+    
+    shell: {
+      run: {
+        options: {
+          stdout: true // to enable logging
+        },
+        command: function() {
+          switch ( require('os').platform() ) {
+            case 'win32': // windows
+              return 'love /src --console';
+            case 'darwin': // os x
+              return '/Applications/love.app/Contents/MacOS/love src/';
+            default:
+              return 'love src/';
+          }
+        }
+      }
     }
   });
   
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-rename');
+  grunt.loadNpmTasks('grunt-shell');
   
   grunt.registerTask('dist', [ 'compress:dist', 'rename:dist' ]);
+  grunt.registerTask('run', [ 'shell:run' ])
   
 };
