@@ -21,7 +21,7 @@ function Entity:render()
   -- stub
   if self.body and self.shape then
     self:applyColor()
-    love.graphics.polygon('fill', self.body:getWorldPoints(self.shape.getPoints()))
+    love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
     self:resetColor()
   end
 end
