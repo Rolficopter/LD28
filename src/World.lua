@@ -44,9 +44,9 @@ end
 
 -- Update logic
 function World:update(dt)
-  self.world:update(dt)
-
   self.player:update(dt)
+  
+  self.world:update(dt)
 end
 
 -- Render logic
@@ -60,7 +60,6 @@ function World:render()
     self.map:draw()
   end
   
-  --self.ground:render()
   self.player:render()
 end
 
