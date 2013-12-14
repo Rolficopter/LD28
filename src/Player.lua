@@ -14,19 +14,63 @@ function Player:initialize(world, x, y, inputSource)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
   self.fixture:setFriction(self.fixture:getFriction() * 1.75)
-  self.texture = love.graphics.newImage('assets/textures/man.png')
 
-  self.color = { 255, 0, 0, 255 }
+  self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
+  self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
+  self.leftLegTexture = love.graphics.newImage('assets/textures/player/leg_left.png')
+  self.rightLegTexture = love.graphics.newImage('assets/textures/player/leg_right.png')
+
+  self.color = { 200, 0, 0, 255 }
 
   self.jumpWasPressed = false
   self.hasFallen = false
   self._oldVY = 0
+
+  self.armRotation = 0
+  self.leftLegRotation = 0
+  self.rightLegRotation = 0
+
+  self.leftGoingLeft = true
+  self.rightGoingLeft = true
 end
 
 function Player:update(dt)
+  self.armRotation = self.armRotation + dt
+
   local direction = self.inputSource:getDirection()
   local vX, vY = self.body:getLinearVelocity()
-  
+
+  if math.abs(vX) > 2 or math.abs(vY) > 2 then
+    -- left leg
+    if self.leftGoingLeft then
+      self.leftLegRotation = self.leftLegRotation + dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.leftLegRotation > 2 / (math.pi * 2) then
+        self.leftGoingLeft = false 
+      end
+    else
+      self.leftLegRotation = self.leftLegRotation - dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.leftLegRotation < - 2 / (math.pi * 2) then
+        self.leftGoingLeft = true
+      end
+    end
+
+    -- right leg
+    if self.rightGoingLeft then
+      self.rightLegRotation = self.rightLegRotation - dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.rightLegRotation < - 2 / (math.pi * 2) then
+        self.rightGoingLeft = false 
+      end
+    else
+      self.rightLegRotation = self.rightLegRotation + dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.rightLegRotation > 2 / (math.pi * 2) then
+        self.rightGoingLeft = true
+      end
+    end
+ else
+    self.leftLegRotation = 0
+    self.rightLegRotation = 0
+  end
+
   -- X
   if math.abs(vX) < Constants.SIZES.PLAYER.MAXVELOCITY then
     if direction == InputSource.Direction.left then
@@ -59,7 +103,30 @@ function Player:update(dt)
 end
 
 function Player:render()
-  love.graphics.draw(self.texture, self.body:getX() - Constants.SIZES.PLAYER.X/2, self.body:getY() -  Constants.SIZES.PLAYER.Y/2, 0, Constants.SIZES.PLAYER.X / self.texture:getWidth(), Constants.SIZES.PLAYER.Y / self.texture:getHeight())
+  love.graphics.setColor(self.color)
+
+  local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
+  local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
+
+  local scaleBodyX = self.bodyTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.bodyTexture:getWidth()
+  local scaleBodyY = self.bodyTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.bodyTexture:getHeight()
+
+  local scaleArmX = self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getWidth()
+  local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
+
+  local scaleLeftLegX = self.leftLegTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.leftLegTexture:getWidth()
+  local scaleLeftLegY = self.leftLegTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.leftLegTexture:getHeight()
+
+  local scaleRightLegX = self.rightLegTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightLegTexture:getWidth()
+  local scaleRightLegY = self.rightLegTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightLegTexture:getHeight()
+
+  love.graphics.draw(self.bodyTexture, baseX, baseY, 0, scaleBodyX, scaleBodyY)
+
+  love.graphics.draw(self.armTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotation, scaleArmX, scaleArmX, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+  love.graphics.draw(self.armTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotation, scaleArmX, scaleArmY, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+  
+  love.graphics.draw(self.leftLegTexture, baseX - Constants.SIZES.PLAYER.LEG_X_OFFSET + self.leftLegTexture:getWidth() * scaleLeftLegX + 12.5, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.leftLegRotation, scaleLeftLegX, scaleLeftLegY, self.leftLegTexture:getWidth() / 2, 2)
+  love.graphics.draw(self.rightLegTexture, baseX + Constants.SIZES.PLAYER.LEG_X_OFFSET + self.rightLegTexture:getWidth() * scaleRightLegX + 10, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.rightLegRotation, scaleRightLegX, scaleRightLegY, self.rightLegTexture:getWidth() / 2, 2)
 end
 
 return Player
