@@ -2,7 +2,7 @@ local class = require 'lib/middleclass'
 
 Drawable = class('Drawable')
 
-function Drawable:initialize(world)
+function Drawable:initialize()
   self.color = { 255, 255, 255, 255 }
   self._drawColor = nil
 end
