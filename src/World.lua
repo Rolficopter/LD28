@@ -4,6 +4,8 @@ local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
 
+local atl = require 'lib/advanced-tiled-loader/loader'
+
 World = class('World', Drawable)
 
 -- Init logic
@@ -22,6 +24,14 @@ function World:initialize()
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
   -- TODO replace with Tiled map
   createTempWorld(self)
+  -- TODO extend Tiled map loading
+  self.map = nil
+  atl.path = 'maps/'
+end
+
+-- Load map
+function World:loadMap(name)
+  self.map = atl.load(name)
 end
 
 -- Update logic
@@ -31,6 +41,10 @@ end
 
 -- Render logic
 function World:render()
+  if self.map then
+    self.map:draw()
+  end
+  
   self.ground:render()
   self.player:render()
 end
