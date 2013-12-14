@@ -56,7 +56,7 @@ function World:render()
 
   love.graphics.translate(translateX, translateY)
   if self.map then
-    self.map:autoDrawRange (translateX, translateY, 1, 0)
+    self.map:autoDrawRange(translateX, translateY, 1, 0)
     self.map:draw()
   end
   
