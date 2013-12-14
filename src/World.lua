@@ -30,7 +30,7 @@ function World:loadMap(name)
     entity.color = {0, 0, 0, 0}
     entity.body = love.physics.newBody(self.world, object.x + object.width / 2, object.y + object.height / 2, 'static')
     entity.shape = love.physics.newRectangleShape(object.width, object.height)
-    entity.fixture = love.physics.newFixture(entity.body, entity.shape)
+    entity:createFixture()
 
     table.insert(self.collisionFields, entity)
   end
