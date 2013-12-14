@@ -9,9 +9,10 @@ function Entity:initialize(world)
   
   self.body = nil
   self.shape = nil
+  self.fixture = nil
 end
 function Entity:createFixture()
-  love.physics.newFixture(self.body, self.shape, 1)
+  self.fixture = love.physics.newFixture(self.body, self.shape, 1)
 end
 
 -- Update logic
