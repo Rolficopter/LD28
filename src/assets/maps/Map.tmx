@@ -3,9 +3,9 @@
  <tileset firstgid="1" name="first_tileset" tilewidth="32" tileheight="32">
   <image source="first_tileset.png" width="256" height="128"/>
  </tileset>
- <layer name="Kachelebene 1" width="100" height="100">
+ <layer name="Kachelz" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2QFL40AQhuE1p2ALwilGEE6v//9XXhYy+DnubptWk+7c+8CwSY00zexkd5OblNLNHIPb3k2xl89Ojfc5XqYY5+1x3vef6fde0g5uv1d2DfXa1/KwBTuXY+3e7fdKr/eQriMHNbW62Bc+71WpPq4tDzX5fC0fkerD10UvtDYsNxHqo1UXz1P8muJ2bjVu3fbjCuerrB50DIlQH7tUz8d9+vjNWkP623N/fJvidYXzVa35Vq/8/cq7T5/HF50H7+T/t8hHa77VK11rWF7U7yn+znGQbb+ftx9WOF8van2MqZyPpWrjje0/Fo71xywZi6LVx3fPc/P9rbTutu07d2xep7+lj/W8tUvufdHq4zvnuvka69ii+c7X2edjdHFOPlKKUx+WB7sel7Lx5pDKY86DO/ZQiaVjUZTnV/65Ya/s3CPUR2u+2wt9Btdzfei6Iko+otTH0n7l56s2V93i2cngolel+fupWmvF1nhcymPpmVjt76VcR5pfrT0vyfNce09oaw/b1tC/6zGluXCU9ccW/crWHfpOd5RtWxfqusRyVFub2LhBfSyn97mlcUjle2Gk+uhpHHyqfM74cR2e5uj9d5hz5lXXxPIRsT62WDdcKnJ95HbL9+HniFwfvl37/esxrXVkpPrQ5z7az+y3/kSdlN4NHvueP+lrHdh6JVJ9+GeKvm09v7gkjn1P6d2uvl/W9WOk+rB+VepnrfpptbV+u6T1+dG/63OWaPVh/cp+25A+97la/ezcMRbaf/17idZ4dWqr5xmtPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/2T9r2xn2
+   eJztmg1r4zAMhr1sg7UwuB2XwsF26///lRdDRN9qttvsI5m15wFhp0mpY/mNJKc3KaWb2QbX3022l8+utX+zHSYb5/44H/vP9Hc/0g7uuFdsDnXua37YAhvLpXbvjntF53tI38MHNWq62Bc+75WSPr6bH2rk8Zo/IunD66IXVBvmmwj6aOniz2S3k93Nrdqd6z+tMF7F9KAxJII+dqnuj4d0umfVkN57Xo8vk/1dYbxKK9/qFf+88jyk8/iiefBOvr+FP1r5Vq9orWF+UX5N9jrbUfr+OPcfVxivJ6o+xlT2x1Jq8caOnwrX+muWxKJo+vjsPDc/30p1t/Xv3bW5Tn9Jp3re2iXPvmj6+MxcN8+xxhb1d55n74/R2Xv8kVIcfZgfbD4+isWbYyrHnEd37bFiS2NRlP0rv2/YKzb2CPpo5bu9oHtwPetD64oo/oiij6XryuerlqtusXcyOOuVUv5+La1asRWPS34s7YnVzpd8HSm/WjsvyXmuvSe02sP6anper9Fc2Hwbpf7YYl1Z3aHvdEfpW12odYn5SGsT9QX6eD/6nFtqx3R6FupeZyR99BQHf0v/Ob19v4k+tsP04d//93YfyqW8qpUL+f3aNcnjyrlWZH2Ucsn8TLB4qv+vOszf28o/FoMi6yO3Ps/P/sjzb3uOfj/Y/GPn7tN6/IT4oW3OK/Webe71+JDOffKVOik9OyPqQ/d9dJ3ZPZfeT5hfrGZQX5nOWj4pvRu85MPn9FYHVq9E0offU/TtEtP/obTygNvC77Rika/Dff0YSR+2rkrrrKWfVltbt0ta7x89r/ss0fRh68rubUjna66mn527xkzXr38v0YpX17Y6zmj6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4yfwHPqkdHQ==
   </data>
  </layer>
  <objectgroup name="Collision" width="100" height="100">
@@ -40,7 +40,14 @@
   <object x="57" y="525" width="65" height="53"/>
   <object x="127" y="548" width="33" height="23"/>
   <object x="58" y="581" width="69" height="157"/>
-  <object x="53" y="743" width="42" height="33"/>
+  <object x="53" y="736" width="43" height="43"/>
+  <object x="288" y="751" width="226" height="153"/>
+  <object x="513" y="785" width="126" height="130"/>
+  <object x="640" y="849" width="62" height="63"/>
+  <object x="706" y="880" width="28" height="37"/>
+  <object x="1569" y="592" width="39" height="256"/>
+  <object x="1536" y="624" width="31" height="223"/>
+  <object x="1504" y="751" width="32" height="33"/>
  </objectgroup>
  <objectgroup color="#9b33a4" name="SpawnPoints" width="100" height="100">
   <object x="751" y="233" width="36" height="67"/>
@@ -48,7 +55,7 @@
   <object x="386" y="119" width="44" height="51"/>
   <object x="594" y="468" width="31" height="55"/>
   <object x="1171" y="494" width="44" height="55"/>
-  <object x="426" y="825" width="41" height="69"/>
+  <object x="745" y="836" width="41" height="69"/>
   <object x="1422" y="778" width="34" height="57"/>
  </objectgroup>
 </map>
