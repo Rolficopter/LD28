@@ -19,6 +19,7 @@ local createTempWorld = function(self)
   
   self.player = Player:new(self.world, 10 + Constants.SIZES.PLAYER.X / 2, 10 + Constants.SIZES.PLAYER.Y / 2)
 end
+
 function World:initialize()
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
@@ -34,6 +35,7 @@ end
 -- Load map
 function World:loadMap(name)
   self.map = atl.load(name)
+  self.map.drawObjects = false
 end
 
 -- Update logic
