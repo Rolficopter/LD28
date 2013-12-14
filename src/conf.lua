@@ -11,8 +11,8 @@ Constants.SCREEN.FULLSCREEN = false
 Constants.SCREEN.VSYNC = true
 
 Constants.GRAVITY = {}
-Constants.GRAVITY.Y = 0
-Constants.GRAVITY.X = 9.81
+Constants.GRAVITY.X = 0
+Constants.GRAVITY.Y = 9.81
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
