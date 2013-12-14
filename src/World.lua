@@ -38,7 +38,7 @@ function World:loadMap(name)
   -- place player at random spawnpoint
   playerLocationObject = self.map("SpawnPoints").objects[3]
 
-  self.player = Player:new(self.world, playerLocationObject.x , playerLocationObject.y)
+  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y)
 end
 
 -- Update logic
