@@ -5,7 +5,7 @@ local Entity = require 'Entity'
 local Player = require 'Player'
 local KeyboardInput = require 'input/KeyboardInput'
 
-local atl = require 'lib/advanced-tiled-loader/loader'
+local atl = require 'lib/advanced-tiled-loader/Loader'
 
 World = class('World', Drawable)
 
@@ -14,7 +14,7 @@ function World:initialize()
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
   -- load map
-  atl.path = 'assets/maps/'
+  atl.path = Constants.ASSETS.MAPS
   self.map = nil
   self.collisionFields = {}
   self:loadMap('Map.tmx')

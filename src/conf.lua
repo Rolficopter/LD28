@@ -4,6 +4,11 @@ Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
 Constants.VERSION = "0.0.1"
 Constants.LOVE_VERSION = "0.8.0"
+
+Constants.ASSETS = {}
+Constants.ASSETS.ROOT = 'assets/'
+Constants.ASSETS.MAPS = Constants.ASSETS.ROOT .. 'maps/'
+
 Constants.SCREEN = {}
 Constants.SCREEN.WIDTH = 800
 Constants.SCREEN.HEIGHT = 600
@@ -29,6 +34,7 @@ Constants.SIZES.PLAYER.LEG_Y_OFFSET = 85
 Constants.SIZES.PLAYER.LEFT = -10000
 Constants.SIZES.PLAYER.RIGHT = -Constants.SIZES.PLAYER.LEFT
 Constants.SIZES.PLAYER.JUMP = -12500
+Constants.SIZES.PLAYER.MAXVELOCITY = 50000
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION

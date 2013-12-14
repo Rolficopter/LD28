@@ -1,0 +1,20 @@
+{
+  "name": "LD28",
+  "version": "0.0.1",
+  "description": "Our Ludum Dare #28 entry.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LudumRolfing/LD28.git"
+  },
+  "author": "Ludum Rolfing",
+  "bugs": {
+    "url": "https://github.com/LudumRolfing/LD28/issues"
+  },
+  "homepage": "https://github.com/LudumRolfing/LD28",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-compress": "~0.5.3",
+    "grunt-contrib-rename": "0.0.3",
+    "grunt-shell": "~0.6.1"
+  }
+}
