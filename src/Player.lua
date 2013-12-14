@@ -15,7 +15,7 @@ function Player:initialize(world, x, y, inputSource)
   self:createFixture()
   self.texture = love.graphics.newImage('assets/textures/man.png')
 
-  self.color = {255, 0, 0, 255}
+  self.color = { 255, 0, 0, 255 }
 
   self.jumpWasPressed = false
 end
