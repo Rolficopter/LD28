@@ -23,9 +23,6 @@ end
 function World:initialize()
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
-  -- TODO replace with Tiled map
-  -- createTempWorld(self)
-  -- TODO extend Tiled map loading
   self.map = nil
 
   self.collisionFields = {}
@@ -46,7 +43,7 @@ function World:loadMap(name)
   for i, object in pairs( self.map("Collision").objects ) do
     local entity = Entity:new(self.world)
     entity.color = {0, 0, 0, 0}
-    entity.body = love.physics.newBody(self.world, object.x, object.y, 'static')
+    entity.body = love.physics.newBody(self.world, object.x + object.width / 2, object.y + object.height / 2, 'static')
     entity.shape = love.physics.newRectangleShape(object.width, object.height)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
 
