@@ -13,7 +13,8 @@ local createTempWorld = function(self)
   self.ground.shape = love.physics.newRectangleShape(Constants.SCREEN.WIDTH * 2, 100)
 end
 local initWorld = function(self)
-  self.world = love.physics.newWorld(Constants.GRAVITY.X, Constants.GRAVITY.Y, true)
+  love.physics.setMeter(Constants.SIZES.METER)
+  self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
   -- TODO replace with Tiled map
   createTempWorld(self)
 end
