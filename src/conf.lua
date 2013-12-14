@@ -34,12 +34,12 @@ function love.conf(t)
   -- Active modules
   t.modules.graphics = true
   t.modules.physics = true
-  
+  t.modules.image = true
+
   -- Unused modules
   t.modules.joystick = false -- speed up start time
   t.modules.audio = false
   t.modules.keyboard = false
-  t.modules.image = false
   t.modules.mouse = false
   t.modules.sound = false
 end
