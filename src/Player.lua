@@ -28,13 +28,13 @@ function Player:update(dt)
   -- X
   if direction == InputSource.Direction.left then
     if vX > 0 then
-      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.LEFT, 0)
+      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.LEFT / 10, 0)
     else
       self.body:applyForce(Constants.SIZES.PLAYER.LEFT, 0)
     end
   elseif direction == InputSource.Direction.right then
     if vX < 0 then
-      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.RIGHT, 0)
+      self.body:applyLinearImpulse(Constants.SIZES.PLAYER.RIGHT / 10, 0)
     else
       self.body:applyForce(Constants.SIZES.PLAYER.RIGHT, 0)
     end
