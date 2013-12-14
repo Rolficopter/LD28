@@ -11,6 +11,7 @@ local createTempWorld = function(self)
   self.ground.color = { 50, 230, 50, 230 }
   self.ground.body = love.physics.newBody(self.world, Constants.SCREEN.WIDTH / 2, Constants.SCREEN.HEIGHT - 50, 'static')
   self.ground.shape = love.physics.newRectangleShape(Constants.SCREEN.WIDTH * 2, 100)
+  self.ground.fixture = love.physics.newFixture(self.ground.body, self.ground.shape)
 end
 local initWorld = function(self)
   love.physics.setMeter(Constants.SIZES.METER)
