@@ -3,6 +3,7 @@ local Drawable = require 'Drawable'
 
 Entity = class('Entity', Drawable)
 
+-- Init logic
 function Entity:initialize(world)
   self.world = world
   
@@ -13,10 +14,12 @@ function Entity:createFixture()
   love.physics.newFixture(self.body, self.shape)
 end
 
+-- Update logic
 function Entity:update(dt)
   -- stub
 end
 
+-- Render logic
 function Entity:render()
   -- stub
   if self.body and self.shape then

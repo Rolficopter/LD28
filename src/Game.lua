@@ -5,6 +5,7 @@ local Constants = require 'conf'
 
 Game = class('Game', Drawable)
 
+-- Init logic
 local createTempWorld = function(self)
   self.ground = Entity:new(self.world)
   self.ground.color = { 50, 230, 50, 230 }
@@ -24,6 +25,7 @@ function Game:initialize()
   love.graphics.setBackgroundColor(self.color)
 end
 
+-- Update logic
 local updateObjects = function(self, dt)
   self.ground:update(dt)
 end
@@ -33,6 +35,7 @@ function Game:update(dt)
   updateObjects(self, dt)
 end
 
+-- Render Logic
 local renderObjects = function(self)
   self.ground:render()
 end
