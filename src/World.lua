@@ -23,10 +23,12 @@ function World:initialize()
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
   -- TODO replace with Tiled map
-  createTempWorld(self)
+  -- createTempWorld(self)
   -- TODO extend Tiled map loading
   self.map = nil
-  atl.path = 'maps/'
+  atl.path = 'assets/maps/'
+
+  self:loadMap('Map.tmx')
 end
 
 -- Load map
@@ -45,8 +47,8 @@ function World:render()
     self.map:draw()
   end
   
-  self.ground:render()
-  self.player:render()
+  --self.ground:render()
+  --self.player:render()
 end
 
 return World
