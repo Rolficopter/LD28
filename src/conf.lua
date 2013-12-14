@@ -34,7 +34,6 @@ function love.conf(t)
   t.modules.audio = false
   t.modules.keyboard = false
   t.modules.image = false
-  t.modules.timer = false
   t.modules.mouse = false
   t.modules.sound = false
 end
