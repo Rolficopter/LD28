@@ -18,19 +18,19 @@ Constants.SIZES = {}
 Constants.SIZES.METER = 16
 Constants.SIZES.PLAYER = {}
 Constants.SIZES.PLAYER.X = 60
-Constants.SIZES.PLAYER.Y = 100
+Constants.SIZES.PLAYER.Y = 80
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
   t.title = Constants.TITLE .. " v" .. Constants.VERSION
   t.author = Constants.AUTHOR
   t.url = Constants.WEBSITE
-  
+
   t.screen.width = Constants.SCREEN.WIDTH
   t.screen.height = Constants.SCREEN.HEIGHT
   t.screen.fullscreen = Constants.SCREEN.FULLSCREEN
   t.screen.vsync = Constants.SCREEN.VSYNC
-  
+
   -- Active modules
   t.modules.graphics = true
   t.modules.physics = true
