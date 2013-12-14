@@ -4,6 +4,11 @@ Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
 Constants.VERSION = "0.0.1"
 Constants.LOVE_VERSION = "0.8.0"
+
+Constants.ASSETS = {}
+Constants.ASSETS.ROOT = 'assets/'
+Constants.ASSETS.MAPS = Constants.ASSETS.ROOT .. 'maps/'
+
 Constants.SCREEN = {}
 Constants.SCREEN.WIDTH = 800
 Constants.SCREEN.HEIGHT = 600
