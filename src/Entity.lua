@@ -23,3 +23,5 @@ function Drawable:render()
     love.graphics.polygon('fill', self.body:getWorldPoints(self.shape.getPoints()))
   end
 end
+
+return Entity

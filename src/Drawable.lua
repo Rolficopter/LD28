@@ -13,3 +13,5 @@ end
 function Drawable:render()
   -- stub
 end
+
+return Drawable

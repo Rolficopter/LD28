@@ -10,3 +10,5 @@ end
 function Game:render()
   love.graphics.print('Hello World', 10, 10)
 end
+
+return Game
