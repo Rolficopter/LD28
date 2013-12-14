@@ -27,17 +27,36 @@ function World:initialize()
   -- createTempWorld(self)
   -- TODO extend Tiled map loading
   self.map = nil
+
+  self.collisionFields = {}
+
   atl.path = 'assets/maps/'
 
   self:loadMap('Map.tmx')
 
-  self.player = Player:new(self.world, 10 + Constants.SIZES.PLAYER.X / 2, 10 + Constants.SIZES.PLAYER.Y / 2)
+  
 end
 
 -- Load map
 function World:loadMap(name)
   self.map = atl.load(name)
   self.map.drawObjects = false
+
+  -- load collision fields
+  for i, object in pairs( self.map("Collision").objects ) do
+    local entity = Entity:new(self.world)
+    entity.color = {0, 0, 0, 0}
+    entity.body = love.physics.newBody(self.world, object.x, object.y, 'static')
+    entity.shape = love.physics.newRectangleShape(object.width, object.height)
+    entity.fixture = love.physics.newFixture(entity.body, entity.shape)
+
+    table.insert(self.collisionFields, entity)
+  end
+
+  -- place player at random spawnpoint
+  playerLocationObject = self.map("SpawnPoints").objects[3]
+
+  self.player = Player:new(self.world, playerLocationObject.x , playerLocationObject.y)
 end
 
 -- Update logic
