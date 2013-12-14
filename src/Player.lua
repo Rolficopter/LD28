@@ -20,6 +20,7 @@ function Player:initialize(world, x, y, inputSource)
 
   self.jumpWasPressed = false
   self.hasFallen = false
+  self._oldVY = 0
 end
 
 function Player:update(dt)
@@ -44,12 +45,15 @@ function Player:update(dt)
   -- Y
   if vY < 0 then
     self.hasFallen = true
+  elseif vY == 0 and self._oldVY - vY < 1 then
+    self.hasFallen = false
   end
   if self.inputSource:shouldJump() then
-    if self.hasFallen then
+    if not self.hasFallen then
       self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
     end
   end
+  self._oldVY = vY
 end
 
 function Player:render()
