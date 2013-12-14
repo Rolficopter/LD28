@@ -21,7 +21,7 @@ Constants.SIZES.PLAYER.X = 60
 Constants.SIZES.PLAYER.Y = 80
 Constants.SIZES.PLAYER.LEFT = -10000
 Constants.SIZES.PLAYER.RIGHT = -Constants.SIZES.PLAYER.LEFT
-Constants.SIZES.PLAYER.JUMP = -2500
+Constants.SIZES.PLAYER.JUMP = -12500
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
