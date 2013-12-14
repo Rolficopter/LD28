@@ -5,7 +5,7 @@ local Entity = require 'Entity'
 local Player = require 'Player'
 local KeyboardInput = require 'input/KeyboardInput'
 
-local atl = require 'lib/advanced-tiled-loader/loader'
+local atl = require 'lib/advanced-tiled-loader/Loader'
 
 World = class('World', Drawable)
 
