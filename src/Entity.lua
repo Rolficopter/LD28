@@ -17,7 +17,7 @@ function Entity:update(dt)
   -- stub
 end
 
-function Drawable:render()
+function Entity:render()
   -- stub
   if self.body and self.shape then
     love.graphics.polygon('fill', self.body:getWorldPoints(self.shape.getPoints()))
