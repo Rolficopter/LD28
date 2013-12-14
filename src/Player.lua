@@ -29,6 +29,9 @@ function Player:initialize(world, x, y, inputSource)
   self.armRotation = 0
   self.leftLegRotation = 0
   self.rightLegRotation = 0
+
+  self.leftGoingLeft = true
+  self.rightGoingLeft = true
 end
 
 function Player:update(dt)
@@ -38,8 +41,31 @@ function Player:update(dt)
   local vX, vY = self.body:getLinearVelocity()
 
   if math.abs(vX) > 2 or math.abs(vY) > 2 then
-    self.leftLegRotation = 42
-    self.rightLegRotation = 42
+    -- left leg
+    if self.leftGoingLeft then
+      self.leftLegRotation = self.leftLegRotation + dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.leftLegRotation > 2 / (math.pi * 2) then
+        self.leftGoingLeft = false 
+      end
+    else
+      self.leftLegRotation = self.leftLegRotation - dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.leftLegRotation < - 2 / (math.pi * 2) then
+        self.leftGoingLeft = true
+      end
+    end
+
+    -- right leg
+    if self.rightGoingLeft then
+      self.rightLegRotation = self.rightLegRotation - dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.rightLegRotation < - 2 / (math.pi * 2) then
+        self.rightGoingLeft = false 
+      end
+    else
+      self.rightLegRotation = self.rightLegRotation + dt * Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED * math.abs(vX) / 100
+      if self.rightLegRotation > 2 / (math.pi * 2) then
+        self.rightGoingLeft = true
+      end
+    end
  else
     self.leftLegRotation = 0
     self.rightLegRotation = 0
