@@ -37,7 +37,8 @@ function World:loadMap(name)
   end
 
   -- place player at random spawnpoint
-  playerLocationObject = self.map("SpawnPoints").objects[3]
+  local spawns = self.map("SpawnPoints").objects
+  playerLocationObject = spawns[math.random(0, table.getn(spawns) - 1)]
 
   self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardInput:new())
 end
