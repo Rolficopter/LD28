@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32" backgroundcolor="#ffffff">
+ <tileset firstgid="1" name="first_tileset" tilewidth="32" tileheight="32">
+  <image source="first_tileset.png" width="256" height="128"/>
+ </tileset>
+ <layer name="Kachelebene 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2QFL40AQhuE1p2ALwilGEE6v//9XXhYy+DnubptWk+7c+8CwSY00zexkd5OblNLNHIPb3k2xl89Ojfc5XqYY5+1x3vef6fde0g5uv1d2DfXa1/KwBTuXY+3e7fdKr/eQriMHNbW62Bc+71WpPq4tDzX5fC0fkerD10UvtDYsNxHqo1UXz1P8muJ2bjVu3fbjCuerrB50DIlQH7tUz8d9+vjNWkP623N/fJvidYXzVa35Vq/8/cq7T5/HF50H7+T/t8hHa77VK11rWF7U7yn+znGQbb+ftx9WOF8van2MqZyPpWrjje0/Fo71xywZi6LVx3fPc/P9rbTutu07d2xep7+lj/W8tUvufdHq4zvnuvka69ii+c7X2edjdHFOPlKKUx+WB7sel7Lx5pDKY86DO/ZQiaVjUZTnV/65Ya/s3CPUR2u+2wt9Btdzfei6Iko+otTH0n7l56s2V93i2cngolel+fupWmvF1nhcymPpmVjt76VcR5pfrT0vyfNce09oaw/b1tC/6zGluXCU9ccW/crWHfpOd5RtWxfqusRyVFub2LhBfSyn97mlcUjle2Gk+uhpHHyqfM74cR2e5uj9d5hz5lXXxPIRsT62WDdcKnJ95HbL9+HniFwfvl37/esxrXVkpPrQ5z7az+y3/kSdlN4NHvueP+lrHdh6JVJ9+GeKvm09v7gkjn1P6d2uvl/W9WOk+rB+VepnrfpptbV+u6T1+dG/63OWaPVh/cp+25A+97la/ezcMRbaf/17idZ4dWqr5xmtPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/2T9r2xn2
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="100" height="100">
+  <object x="288" y="175" width="320" height="96"/>
+  <object x="670" y="301" width="226" height="100"/>
+  <object x="511" y="526" width="192" height="33"/>
+  <object x="959" y="558" width="481" height="99"/>
+  <object x="1023" y="304" width="192" height="95"/>
+  <object x="96" y="780" width="32" height="36"/>
+  <object x="130" y="814" width="95" height="66"/>
+  <object x="226" y="879" width="61" height="56"/>
+  <object x="290" y="908" width="698" height="34"/>
+  <object x="991" y="880" width="130" height="68"/>
+  <object x="1121" y="907" width="128" height="59"/>
+  <object x="1251" y="941" width="121" height="33"/>
+  <object x="1375" y="911" width="29" height="63"/>
+  <object x="1409" y="849" width="190" height="125"/>
+  <object x="1604" y="354" width="120" height="497"/>
+  <object x="1573" y="315" width="150" height="37"/>
+  <object x="1539" y="254" width="183" height="59"/>
+  <object x="1507" y="99" width="60" height="151"/>
+  <object x="1282" y="26" width="99" height="33"/>
+  <object x="1383" y="60" width="126" height="35"/>
+  <object x="353" y="2" width="931" height="32"/>
+  <object x="243" y="1" width="107" height="63"/>
+  <object x="174" y="58" width="82" height="38"/>
+  <object x="66" y="81" width="123" height="43"/>
+  <object x="59" y="122" width="102" height="36"/>
+  <object x="46" y="167" width="81" height="143"/>
+  <object x="131" y="259" width="30" height="56"/>
+  <object x="58" y="321" width="65" height="204"/>
+  <object x="57" y="525" width="65" height="53"/>
+  <object x="127" y="548" width="33" height="23"/>
+  <object x="58" y="581" width="69" height="157"/>
+  <object x="53" y="743" width="42" height="33"/>
+ </objectgroup>
+ <objectgroup color="#9b33a4" name="SpawnPoints" width="100" height="100">
+  <object x="751" y="233" width="36" height="67"/>
+  <object x="1083" y="235" width="47" height="60"/>
+  <object x="386" y="119" width="44" height="51"/>
+  <object x="594" y="468" width="31" height="55"/>
+  <object x="1171" y="494" width="44" height="55"/>
+  <object x="426" y="825" width="41" height="69"/>
+  <object x="1422" y="778" width="34" height="57"/>
+ </objectgroup>
+</map>
