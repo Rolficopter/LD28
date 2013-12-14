@@ -11,7 +11,7 @@ function Entity:initialize(world)
   self.shape = nil
 end
 function Entity:createFixture()
-  love.physics.newFixture(self.body, self.shape)
+  love.physics.newFixture(self.body, self.shape, 1)
 end
 
 -- Update logic
