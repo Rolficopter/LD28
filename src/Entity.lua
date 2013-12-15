@@ -1,19 +1,21 @@
 local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
+local Constants = require 'conf'
 
 Entity = class('Entity', Drawable)
 
 -- Init logic
 function Entity:initialize(worldObject)
   self.world = worldObject -- this is our own class!
-  
   self.body = nil
   self.shape = nil
   self.fixture = nil
 end
+
 function Entity:createFixture()
   self.fixture = love.physics.newFixture(self.body, self.shape, 1)
 end
+
 function Entity:getWorld()
   return self.world.world
 end

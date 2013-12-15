@@ -5,10 +5,13 @@ local Entity = require 'Entity'
 Player = class('Player', Entity)
 
 -- Init logic
-function Player:initialize(world, x, y, inputSource)
-  Entity:initialize(world)
+function Player:initialize(world, x, y, inputSource, gameWorld)
+  Entity:initialize(gameWorld)
+
+  print(self.world)
   self.inputSource = inputSource
   self.body = love.physics.newBody(self:getWorld(), x, y, 'dynamic')
+
   self.body:setFixedRotation(true)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
@@ -101,6 +104,14 @@ function Player:update(dt)
   self._oldVY = vY
 
   self.armRotation = self.inputSource:getArmAngle()
+
+ -- Determine if Player shot
+  if love.mouse.isDown("l") then
+    if self.world then
+      self.world = self.world:insertBullet(self.armRotation)
+      print(self.world)
+    end
+  end
 end
 
 function Player:render()

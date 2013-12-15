@@ -19,12 +19,13 @@ function KeyboardAndMouseInput:shouldJump()
   else
     self.jumpWasPressed = false
   end
-  
+
   return false
 end
+
 function KeyboardAndMouseInput:getDirection()
   local direction = InputSource.Direction.none
-  
+
   if keyboard.isDown("s") or keyboard.isDown("down") then
     if direction == InputSource.Direction.none then
       direction = InputSource.Direction.down
@@ -32,7 +33,7 @@ function KeyboardAndMouseInput:getDirection()
       direction = InputSource.Direction.none
     end
   end
-  
+
   if keyboard.isDown("a") or keyboard.isDown("left") then
     direction = InputSource.Direction.left
   end
@@ -43,12 +44,12 @@ function KeyboardAndMouseInput:getDirection()
       direction = InputSource.Direction.none
     end
   end
-  
+
   return direction
 end
 
 function KeyboardAndMouseInput:getArmAngle()
-  return -math.atan2(love.mouse.getX() - love.graphics.getWidth() / 2, love.mouse.getY() - love.graphics.getHeight() / 2) - (90/(math.pi*2)) 
+  return -math.atan2(love.mouse.getX() - love.graphics.getWidth() / 2, love.mouse.getY() - love.graphics.getHeight() / 2) - (90/(math.pi*2))
 end
 
 return KeyboardAndMouseInput
