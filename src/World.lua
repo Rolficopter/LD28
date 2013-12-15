@@ -3,7 +3,7 @@ local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
-local KeyboardInput = require 'input/KeyboardInput'
+local KeyboardInput = require 'input/KeyboardAndMouseInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
 
@@ -41,7 +41,7 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardInput:new())
+  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
 end
 
 -- Update logic

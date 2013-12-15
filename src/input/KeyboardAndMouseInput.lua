@@ -1,15 +1,15 @@
 local class = require 'lib/middleclass'
 local InputSource = require 'input/InputSource'
 
-KeyboardInput = class('KeyboardInput', InputSource)
+KeyboardAndMouseInput = class('KeyboardAndMouseInput', InputSource)
 
 local keyboard = love.keyboard
 
-function KeyboardInput:initialize()
+function KeyboardAndMouseInput:initialize()
   self.jumpWasPressed = false
 end
 
-function KeyboardInput:shouldJump()
+function KeyboardAndMouseInput:shouldJump()
   if ( keyboard.isDown("w") or keyboard.isDown("up") ) then
     if not self.jumpWasPressed then
       self.jumpWasPressed = true
@@ -21,7 +21,7 @@ function KeyboardInput:shouldJump()
   
   return false
 end
-function KeyboardInput:getDirection()
+function KeyboardAndMouseInput:getDirection()
   local direction = InputSource.Direction.none
   
   if keyboard.isDown("s") or keyboard.isDown("down") then
@@ -46,8 +46,8 @@ function KeyboardInput:getDirection()
   return direction
 end
 
-function KeyboardInput:getArmAngle()
+function KeyboardAndMouseInput:getArmAngle()
   return -math.atan2(love.mouse.getX() - love.graphics.getWidth() / 2, love.mouse.getY() - love.graphics.getHeight() / 2) - (90/(math.pi*2)) 
 end
 
-return KeyboardInput
+return KeyboardAndMouseInput
