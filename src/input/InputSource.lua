@@ -12,6 +12,11 @@ function InputSource:initialize(world)
   self.world = world
 end
 
+function InputSource:updateFromExternalInput(networkClientData)
+  -- stub
+  -- update input here according to network input
+end
+
 function InputSource:shouldJump()
   return false
 end

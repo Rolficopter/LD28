@@ -3,6 +3,7 @@ local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
 local KeyboardInput = require 'input/KeyboardAndMouseInput'
+local NetworkInput = require 'input/NetworkInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
 
@@ -46,6 +47,7 @@ function World:loadMap(name)
 
   self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
   table.insert(self.entities, self.player)
+  table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
 end
 
 -- Update logic

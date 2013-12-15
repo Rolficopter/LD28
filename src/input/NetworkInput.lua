@@ -17,3 +17,5 @@ end
 function NetworkInput:getArmAngle()
 	return 0
 end
+
+return NetworkInput
