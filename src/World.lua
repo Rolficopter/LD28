@@ -54,9 +54,9 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(), self)
+  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
   table.insert(self.entities, self.player)
-  table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
+  --table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
 end
 
 -- Insert Bullet
@@ -90,7 +90,7 @@ function World:update(dt)
 
     ent:update(dt)
   end
-  
+
   self.world:update(dt)
 end
 

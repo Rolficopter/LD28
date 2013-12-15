@@ -28,10 +28,9 @@ local _worldCollision_EndContact = function(a, b, coll)
 end
 
 -- Init logic
-function Player:initialize(world, x, y, inputSource, gameWorld)
-  Entity:initialize(gameWorld)
+function Player:initialize(world, x, y, inputSource)
+  Entity:initialize(world)
 
-  print(self.world)
   self.inputSource = inputSource
   self.body = love.physics.newBody(self:getWorld(), x, y, 'dynamic')
 
