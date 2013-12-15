@@ -14,7 +14,6 @@ function GameMenu:initialize()
   love.graphics.setBackgroundColor(self.color)
 
   self.ingameMusic = love.audio.newSource('assets/music/ingame.mp3')
-
 end
 
 function GameMenu:update(dt)
