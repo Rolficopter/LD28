@@ -12,9 +12,16 @@ function GameMenu:initialize()
   
   self.color = { 255, 255, 255, 255 }
   love.graphics.setBackgroundColor(self.color)
+
+  self.ingameMusic = love.audio.newSource('assets/music/ingame.mp3')
+
 end
 
 function GameMenu:update(dt)
+  if self.ingameMusic:isStopped() then
+    self.ingameMusic:play()
+  end
+  
   self.world:update(dt)
 end
 

@@ -24,11 +24,18 @@ function MainMenu:initialize()
   self.cursor.height = 0
   self.cursor.widthDes = 0
   self.cursor.heightDes = 0
+
+  self.menuMusic = love.audio.newSource('assets/music/menu.mp3')
 end
 
 function MainMenu:update(dt)
+  if self.menuMusic:isStopped() then
+    self.menuMusic:play()
+  end
+
   if love.keyboard.isDown("return") then
     if self.currentSelection == 0 then
+      self.menuMusic:stop()
       self:switchToMenu(Constants.MENU.GAME.NAME)
     elseif self.currentSelection == 1 then
       love.event.quit()
