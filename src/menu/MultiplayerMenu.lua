@@ -7,14 +7,13 @@ require 'lib/LUBE'
 MultiplayerMenu = class('MultiplayerMenu', GameMenu)
 
 function MultiplayerMenu:initialize(isServer, ip)
-	GameMenu:initialize()
-
 	if isServer then
 		self:initServer()
 		self:initClient("localhost")
 	else
 		self:initClient(ip)
 	end
+	GameMenu:initialize(self.client)
 end
 function MultiplayerMenu:initServer()
 	self.server = Server:new()
