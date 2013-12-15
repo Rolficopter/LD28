@@ -4,10 +4,10 @@ local World = require 'World'
 
 GameMenu = class('GameMenu', Menu)
 
-function GameMenu:initialize()
+function GameMenu:initialize(networkClient)
   Menu:initialize()
   
-  self.world = World:new()
+  self.world = World:new(networkClient)
   
   self.color = { 255, 255, 255, 255 }
   love.graphics.setBackgroundColor(self.color)
