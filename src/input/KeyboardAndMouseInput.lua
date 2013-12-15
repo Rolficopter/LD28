@@ -48,8 +48,8 @@ function KeyboardAndMouseInput:getDirection()
   return direction
 end
 
-function KeyboardAndMouseInput:getArmAngle()
-  return -math.atan2(love.mouse.getX() - love.graphics.getWidth() / 2, love.mouse.getY() - love.graphics.getHeight() / 2) - (90/(math.pi*2))
+function KeyboardAndMouseInput:getArmAngle(posX, posY)
+  return -math.atan2( posX - love.mouse.getX() ,  posY - love.mouse.getY()) - (90/(math.pi*2))
 end
 
 return KeyboardAndMouseInput
