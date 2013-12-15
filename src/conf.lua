@@ -16,8 +16,13 @@ Constants.SCREEN.FULLSCREEN = false
 Constants.SCREEN.VSYNC = true
 
 Constants.MENU = {}
-Constants.MENU.MAIN = 'main'
-Constants.MENU.GAME = 'game'
+Constants.MENU.MAIN = {}
+Constants.MENU.MAIN.NAME = 'main'
+Constants.MENU.MAIN.HEADING_SIZE = 40
+Constants.MENU.MAIN.TEXT_SIZE = 30
+
+Constants.MENU.GAME = {}
+Constants.MENU.GAME.NAME = 'game'
 
 Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0

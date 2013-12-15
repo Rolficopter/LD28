@@ -13,9 +13,9 @@ end
 
 local loadMenu = function(self, menu)
   if not self.menus[menu] then
-    if menu == Constants.MENU.MAIN then
+    if menu == Constants.MENU.MAIN.NAME then
       self.menus[menu] = MainMenu:new()
-    elseif menu == Constants.MENU.GAME then
+    elseif menu == Constants.MENU.GAME.NAME then
       self.menus[menu] = GameMenu:new()
     end
   end
