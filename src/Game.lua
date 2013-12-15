@@ -1,3 +1,4 @@
+local Constants = require 'conf'
 local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local MenuManager = require 'menu/MenuManager'
@@ -8,7 +9,12 @@ Game = class('Game', Drawable)
 function Game:initialize()
   Drawable:initialize()
   self.menu = MenuManager:new()
-  self.menu:switchTo(Constants.MENU.MAIN.NAME)
+
+  if Constants.DEBUG then
+  	self.menu:switchTo(Constants.MENU.GAME.NAME)
+  else
+  	self.menu:switchTo(Constants.MENU.MAIN.NAME)
+  end
 end
 
 -- Update logic
