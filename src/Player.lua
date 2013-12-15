@@ -136,8 +136,6 @@ end
 function Player:render()
   love.graphics.setColor(self.color)
 
-  love.graphics.polygon('fill', self.groundSensor.body:getWorldPoints(self.groundSensor.shape:getPoints()))
-
   local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
   local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
 
