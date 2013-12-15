@@ -49,6 +49,8 @@ Constants.SIZES.PLAYER.MAXVELOCITY = 50000
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
+  t.release = not Constants.DEBUG
+
   t.title = Constants.TITLE .. " v" .. Constants.VERSION
   t.author = Constants.AUTHOR
   t.url = Constants.WEBSITE
