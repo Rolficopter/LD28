@@ -29,9 +29,9 @@ function World:loadMap(name)
 
   -- load collision fields
   for i, object in pairs( self.map("Collision").objects ) do
-    local entity = Entity:new(self.world)
+    local entity = Entity:new(self)
     entity.color = {0, 0, 0, 0}
-    entity.body = love.physics.newBody(self.world, object.x + object.width / 2, object.y + object.height / 2, 'static')
+    entity.body = love.physics.newBody(entity:getWorld(), object.x + object.width / 2, object.y + object.height / 2, 'static')
     entity.shape = love.physics.newRectangleShape(object.width, object.height)
     entity:createFixture()
 
@@ -43,7 +43,7 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
+  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
   table.insert(self.entities, self.player)
 end
 
