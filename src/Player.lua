@@ -4,6 +4,30 @@ local Entity = require 'Entity'
 
 Player = class('Player', Entity)
 
+local instance = nil
+-- Callbacks
+local _checkForGroundCollision = function(a, b, coll, begin)
+  if a == instance.groundSensor.fixture or b == instance.groundSensor.fixture then
+
+    if a == instance.groundSensor.fixture then
+      if b:getUserData() == "map" then
+        instance.onGround = begin
+      end
+    elseif b == instance.groundSensor.fixture then
+      if a:getUserData() == "map" then
+        instance.onGround = begin
+      end
+    end
+
+  end
+end
+local _worldCollision_BeginContact = function(a, b, coll)
+  _checkForGroundCollision(a, b, coll, true)
+end
+local _worldCollision_EndContact = function(a, b, coll)
+  _checkForGroundCollision(a, b, coll, false)
+end
+
 -- Init logic
 function Player:initialize(world, x, y, inputSource, gameWorld)
   Entity:initialize(gameWorld)
@@ -16,6 +40,16 @@ function Player:initialize(world, x, y, inputSource, gameWorld)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
   self.fixture:setFriction(self.fixture:getFriction() * 1.75)
+  -- jump sensor
+  self.groundSensor = {}
+  self.groundSensor.body = love.physics.newBody(self:getWorld(), self.body:getX(), (self.body:getY() + Constants.SIZES.PLAYER.Y / 2) - 5, 'dynamic')
+  self.groundSensor.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X - 10, 10)
+  self.groundSensor.fixture = love.physics.newFixture(self.groundSensor.body, self.groundSensor.shape)
+  self.groundSensor.fixture:setFriction(0)
+  self.groundSensor.fixture:setSensor(true)
+  self.groundSensor.joint = love.physics.newWeldJoint(self.body, self.groundSensor.body, self.body:getX(), self.body:getY(), false)
+  self:getWorld():setCallbacks(_worldCollision_BeginContact, _worldCollision_EndContact, nil, nil)
+  instance = self
 
   self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
   self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
@@ -27,8 +61,7 @@ function Player:initialize(world, x, y, inputSource, gameWorld)
   self.color = { 200, 0, 0, 255 }
 
   self.jumpWasPressed = false
-  self.hasFallen = false
-  self._oldVY = 0
+  self.onGround = false
 
   self.armRotation = 0
   self.leftLegRotation = 0
@@ -91,17 +124,11 @@ function Player:update(dt)
   end
 
   -- Y
-  if vY < 0 then
-    self.hasFallen = true
-  elseif vY == 0 and self._oldVY - vY < 1 then
-    self.hasFallen = false
-  end
   if self.inputSource:shouldJump() then
-    if not self.hasFallen then
+    if self.onGround then
       self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
     end
   end
-  self._oldVY = vY
 
    local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
    local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
