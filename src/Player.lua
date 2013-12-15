@@ -7,8 +7,6 @@ Player = class('Player', Entity)
 local instance = nil
 -- Callbacks
 local _checkForGroundCollision = function(a, b, coll, begin)
-  print("begin", a:getUserData(), b:getUserData(), coll)
-
   if a == instance.groundSensor.fixture or b == instance.groundSensor.fixture then
 
     if a == instance.groundSensor.fixture then
@@ -22,8 +20,6 @@ local _checkForGroundCollision = function(a, b, coll, begin)
     end
 
   end
-
-  print("onGround:", instance.onGround)
 end
 local _worldCollision_BeginContact = function(a, b, coll)
   _checkForGroundCollision(a, b, coll, true)
