@@ -1,3 +1,11 @@
+function string.starts(String,Start)
+   return string.sub(String,1,string.len(Start))==Start
+end
+
+function string.ends(String,End)
+   return End=='' or string.sub(String,-string.len(End))==End
+end
+
 local Constants = require 'conf'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
@@ -51,10 +59,30 @@ function World:loadMap(name)
 end
 
 -- Update logic
+local updateWithNetworkInput = function(self, input)
+  if string.starts(input, "Map") then
+    local mapName = string.sub(input, 5, string.len(input) - 5)
+    print("Load new map:", mapName)
+
+    self:loadMap(mapName .. '.tmx')
+  end
+end
 function World:update(dt)
+  if self.networkClient then
+    local networkData = self.networkClient:receive()
+    if networkData then
+      print(networkData)
+    end
+  end
+
   for i, ent in pairs( self.entities ) do
+    if ent.inputSource and networkData then
+      print("Update input source")
+      ent.inputSource:updateFromExternalInput(networkData)
+    end
+
     ent:update(dt)
-  end 
+  end
   
   self.world:update(dt)
 end

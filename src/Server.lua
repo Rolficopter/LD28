@@ -17,25 +17,48 @@ function Server:initialize()
 	self.clientIds = {}
 end
 
+function Server:sendData(data, senderClientID)
+	if data then
+		for key, value in pairs(self.clientIds) do
+			if ( key ~= senderClientID ) then
+				self.server:send(data, key)
+			end
+		end
+	end
+end
+function Server:sendMessage(data, receiverClientID)
+	self.server:send(data, receiverClientID)
+end
+
+function Server:onNewClient( clientID )
+	print("New client:", clientID)
+
+	self:sendMessage('Map:Map', clientID)
+end
+
 local saveClientID = function(self, clientID)
-	if not self.clientIds[clientID] then
+	if clientID and not self.clientIds[clientID] then
 		self.clientIds[clientID] = true
+		-- new client
+		self:onNewClient(clientID)
 	end
 end
 local processClientMessages = function(self)
 	local data, clientID = self.server:receive()
-	saveClientID(self, clientID)
+	if ( data and clientID ) then
+		saveClientID(self, clientID)
 
-	for key, value in pairs(self.clientIds) do
-		if ( key ~= clientID ) then
-			self.server:send(data, key)
-		end
+		self:sendData(data, clientID)
 	end
 end
 function Server:update( dt )
 	self.server:update(dt)
 
 	processClientMessages(self)
+
+	if math.random(0, 3 * 60) then
+
+	end
 end
 
 return Server

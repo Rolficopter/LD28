@@ -6,6 +6,12 @@ function NetworkInput:initialize(world)
 	InputSource:initialize(world)
 end
 
+function NetworkInput:updateFromExternalInput(networkClientData)
+	InputSource:updateFromExternalInput(networkClientData)
+
+	error("Not implemented")
+end
+
 function NetworkInput:shouldJump()
 	return false
 end
