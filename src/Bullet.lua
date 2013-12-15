@@ -14,6 +14,8 @@ function Bullet:initialize(gameWorld, x, y, angle)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.BULLET.X, Constants.SIZES.BULLET.Y)
   self.color = { 0, 0, 0, 255 }
   self:createFixture()
+  
+  self.body:setGravityScale(0)
 
 	if(love.mouse.getX() > love.graphics.getWidth() / 2) then
  		self.body:applyLinearImpulse(Constants.SIZES.BULLET.SPEED, Constants.SIZES.BULLET.SPEED * math.tan(angle))
