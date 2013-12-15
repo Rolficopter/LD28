@@ -50,6 +50,8 @@ function Player:initialize(world, x, y, inputSource)
   self.groundSensor.fixture:setFriction(0)
   self.groundSensor.fixture:setSensor(true)
   self.groundSensor.joint = love.physics.newWeldJoint(self.body, self.groundSensor.body, self.body:getX(), self.body:getY(), false)
+  self:getWorld():setCallbacks(_worldCollision_BeginContact, _worldCollision_EndContact, nil, nil)
+  instance = self
 
   self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
   self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
