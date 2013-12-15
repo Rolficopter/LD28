@@ -17,8 +17,13 @@ end
 function InputSource:shouldJump()
   return false
 end
+
 function InputSource:getDirection()
   return InputSource.Direction.none
+end
+
+function InputSource:getArmAngle()
+  return 0
 end
 
 return InputSource

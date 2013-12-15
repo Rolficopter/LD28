@@ -62,11 +62,11 @@ function love.conf(t)
   t.modules.physics = true
   t.modules.image = true
   t.modules.keyboard = true
+  t.modules.mouse = true
 
   -- Unused modules
   t.modules.joystick = false -- speed up start time
   t.modules.audio = false
-  t.modules.mouse = false
   t.modules.sound = false
 end
 

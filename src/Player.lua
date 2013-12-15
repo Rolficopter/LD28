@@ -35,8 +35,6 @@ function Player:initialize(world, x, y, inputSource)
 end
 
 function Player:update(dt)
-  self.armRotation = self.armRotation + dt
-
   local direction = self.inputSource:getDirection()
   local vX, vY = self.body:getLinearVelocity()
 
@@ -100,6 +98,8 @@ function Player:update(dt)
     end
   end
   self._oldVY = vY
+
+  self.armRotation = self.inputSource:getArmAngle()
 end
 
 function Player:render()
