@@ -55,6 +55,11 @@ Constants.SIZES.PLAYER.RIGHT = -Constants.SIZES.PLAYER.LEFT
 Constants.SIZES.PLAYER.JUMP = -14000
 Constants.SIZES.PLAYER.MAXVELOCITY = 50000
 
+Constants.SIZES.BULLET = {}
+Constants.SIZES.BULLET.X = 5
+Constants.SIZES.BULLET.Y = 5
+Constants.SIZES.BULLET.SPEED = 10000000
+
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
   t.release = not Constants.DEBUG
