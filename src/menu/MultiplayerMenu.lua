@@ -39,6 +39,8 @@ function MultiplayerMenu:update(dt)
 	end
 
 	self.client:update(dt)
+
+	GameMenu:update(dt)
 end
 
 return MultiplayerMenu
