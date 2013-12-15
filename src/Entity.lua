@@ -4,6 +4,8 @@ Entity = class('Entity', Drawable)
 
 -- Init logic
 function Entity:initialize(worldObject)
+  Drawable:initialize()
+
   self.world = worldObject -- this is our own class!
   
   self.body = nil

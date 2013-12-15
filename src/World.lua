@@ -8,8 +8,9 @@ local atl = require 'lib/advanced-tiled-loader/Loader'
 
 World = class('World', Drawable)
 
-function World:initialize()
+function World:initialize(networkClient)
   self.entities = {}
+  self.networkClient = networkClient
 
   -- load world
   love.physics.setMeter(Constants.SIZES.METER)

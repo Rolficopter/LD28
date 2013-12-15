@@ -1,12 +1,12 @@
-Drawable = class('Drawable')
+local Updateable = require 'Updateable'
+
+Drawable = class('Drawable', Updateable)
 
 function Drawable:initialize()
-  self.color = { 255, 255, 255, 255 }
-  self._drawColor = nil
-end
+	Updateable:initialize()
 
-function Drawable:update(dt)
-  -- stub
+	self.color = { 255, 255, 255, 255 }
+	self._drawColor = nil
 end
 
 function Drawable:render()

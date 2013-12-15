@@ -1,5 +1,6 @@
 local Constants = require 'conf'
 local GameMenu = require 'menu/GameMenu'
+local Server = require 'Server'
 
 require 'lib/LUBE'
 
@@ -16,10 +17,7 @@ function MultiplayerMenu:initialize(isServer, ip)
 	end
 end
 function MultiplayerMenu:initServer()
-	self.server = lube.udpServer()
-	self.server.handshake = Constants.NET.HANDSHAKE
-	self.server:setPing(true, Constants.NET.PING.TIMEOUT * 3, Constants.NET.PING.MSG)
-	self.server:listen(Constants.NET.PORT)
+	self.server = Server:new()
 end
 function MultiplayerMenu:initClient(ip)
 	self.client = lube.udpClient()
