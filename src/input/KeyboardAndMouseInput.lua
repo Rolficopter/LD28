@@ -11,7 +11,7 @@ function KeyboardAndMouseInput:initialize(world)
 end
 
 function KeyboardAndMouseInput:shouldJump()
-  if ( keyboard.isDown("w") or keyboard.isDown("up") ) then
+  if ( keyboard.isDown("w") or keyboard.isDown("up") or keyboard.isDown(" ") ) then -- w, arrow up and space
     if not self.jumpWasPressed then
       self.jumpWasPressed = true
       return true
