@@ -1,4 +1,5 @@
 Constants = {}
+Constants.DEBUG = true
 Constants.TITLE = "LD48"
 Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
@@ -20,7 +21,6 @@ Constants.MENU.MAIN = {}
 Constants.MENU.MAIN.NAME = 'main'
 Constants.MENU.MAIN.HEADING_SIZE = 40
 Constants.MENU.MAIN.TEXT_SIZE = 30
-
 Constants.MENU.GAME = {}
 Constants.MENU.GAME.NAME = 'game'
 
@@ -43,11 +43,13 @@ Constants.SIZES.PLAYER.LEG_MOVEMENT_SPEED = 3.5
 
 Constants.SIZES.PLAYER.LEFT = -10000
 Constants.SIZES.PLAYER.RIGHT = -Constants.SIZES.PLAYER.LEFT
-Constants.SIZES.PLAYER.JUMP = -12500
+Constants.SIZES.PLAYER.JUMP = -14000
 Constants.SIZES.PLAYER.MAXVELOCITY = 50000
 
 function love.conf(t)
   t.version = Constants.LOVE_VERSION
+  t.release = not Constants.DEBUG
+
   t.title = Constants.TITLE .. " v" .. Constants.VERSION
   t.author = Constants.AUTHOR
   t.url = Constants.WEBSITE
