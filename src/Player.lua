@@ -16,7 +16,7 @@ function Player:initialize(world, x, y, inputSource)
   self.fixture:setFriction(self.fixture:getFriction() * 1.75)
   -- jump sensor
   self.groundSensor = {}
-  self.groundSensor.body = love.physics.newBody(self.world, self.body:getX(), (self.body:getY() + Constants.SIZES.PLAYER.Y / 2) - 10, 'dynamic')
+  self.groundSensor.body = love.physics.newBody(self:getWorld(), self.body:getX(), (self.body:getY() + Constants.SIZES.PLAYER.Y / 2) - 10, 'dynamic')
   self.groundSensor.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, 10)
   self.groundSensor.fixture = love.physics.newFixture(self.groundSensor.body, self.groundSensor.shape)
   self.groundSensor.fixture:setFriction(0)
