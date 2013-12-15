@@ -1,12 +1,13 @@
 local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
+local Constants = require 'conf'
 
 Entity = class('Entity', Drawable)
 
 -- Init logic
 function Entity:initialize(world)
   self.world = world
-  
+
   self.body = nil
   self.shape = nil
   self.fixture = nil

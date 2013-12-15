@@ -3,6 +3,7 @@ local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
+local Bullet = require 'Bullet'
 local KeyboardInput = require 'input/KeyboardAndMouseInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
@@ -45,16 +46,20 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
+  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(), self)
   table.insert(self.entities, self.player)
+end
+-- Insert Bullet
+function World:insertBullet(angle)
+	table.insert(self.entities, Bullet:new(self, self.player.body:getX(), self.player.body:getY(), angle))
 end
 
 -- Update logic
 function World:update(dt)
   for i, ent in pairs( self.entities ) do
     ent:update(dt)
-  end 
-  
+  end
+
   self.world:update(dt)
 end
 
@@ -68,10 +73,10 @@ function World:render()
     self.map:autoDrawRange(translateX, translateY, 1, 0)
     self.map:draw()
   end
-  
+
   for i, ent in pairs( self.entities ) do
     ent:render()
-  end 
+  end
 end
 
 return World

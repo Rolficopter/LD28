@@ -5,9 +5,10 @@ local Entity = require 'Entity'
 Player = class('Player', Entity)
 
 -- Init logic
-function Player:initialize(world, x, y, inputSource)
+function Player:initialize(world, x, y, inputSource, gameWorld)
   Entity:initialize(world)
   self.inputSource = inputSource
+  self.gameWorld = gameWorld
 
   self.body = love.physics.newBody(self.world, x, y, 'dynamic')
   self.body:setFixedRotation(true)
@@ -102,6 +103,11 @@ function Player:update(dt)
   self._oldVY = vY
 
   self.armRotation = self.inputSource:getArmAngle()
+
+ -- Determine if Player shot
+  if love.mouse.isDown("l") then
+    self.gameWorld:insertBullet(self.armRotation)
+  end
 end
 
 function Player:render()
