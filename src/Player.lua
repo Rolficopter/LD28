@@ -14,6 +14,14 @@ function Player:initialize(world, x, y, inputSource)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
   self.fixture:setFriction(self.fixture:getFriction() * 1.75)
+  -- jump sensor
+  self.groundSensor = {}
+  self.groundSensor.body = love.physics.newBody(self.world, self.body:getX(), (self.body:getY() + Constants.SIZES.PLAYER.Y / 2) - 10, 'dynamic')
+  self.groundSensor.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, 10)
+  self.groundSensor.fixture = love.physics.newFixture(self.groundSensor.body, self.groundSensor.shape)
+  self.groundSensor.fixture:setFriction(0)
+  self.groundSensor.fixture:setSensor(true)
+  self.groundSensor.joint = love.physics.newWeldJoint(self.body, self.groundSensor.body, self.body:getX(), self.body:getY(), false)
 
   self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
   self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
@@ -104,6 +112,8 @@ end
 
 function Player:render()
   love.graphics.setColor(self.color)
+
+  love.graphics.polygon('fill', self.groundSensor.body:getWorldPoints(self.groundSensor.shape:getPoints()))
 
   local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
   local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
