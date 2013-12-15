@@ -1,4 +1,3 @@
-local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 
 Entity = class('Entity', Drawable)

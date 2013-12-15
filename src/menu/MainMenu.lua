@@ -1,5 +1,4 @@
 local Constants = require 'conf'
-local class = require 'lib/middleclass'
 local Menu = require 'menu/Menu'
 local atl = require 'lib/advanced-tiled-loader/Loader'
 

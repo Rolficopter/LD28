@@ -3,6 +3,9 @@
   main.lua
 ]]--
 
+class = require 'lib/middleclass'
+require 'lib/middleclass-commons'
+
 local Game = require 'Game'
 
 local game = nil

@@ -1,5 +1,4 @@
 local Constants = require 'conf'
-local class = require 'lib/middleclass'
 local Entity = require 'Entity'
 
 Player = class('Player', Entity)

@@ -1,5 +1,3 @@
-local class = require 'lib/middleclass'
-
 Drawable = class('Drawable')
 
 function Drawable:initialize()

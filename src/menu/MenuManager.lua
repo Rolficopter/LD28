@@ -1,5 +1,4 @@
 local Constants = require 'conf'
-local class = require 'lib/middleclass'
 
 local MainMenu = require 'menu/MainMenu'
 local GameMenu = require 'menu/GameMenu'

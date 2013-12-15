@@ -1,5 +1,3 @@
-local class = require 'lib/middleclass'
-
 InputSource = class('InputSource')
 
 InputSource.Direction = {

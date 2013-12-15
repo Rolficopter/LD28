@@ -1,5 +1,4 @@
 local Constants = require 'conf'
-local class = require 'lib/middleclass'
 local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'

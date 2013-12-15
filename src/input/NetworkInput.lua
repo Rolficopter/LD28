@@ -1,4 +1,3 @@
-local class = require 'lib/middleclass'
 local InputSource = require 'input/InputSource'
 
 NetworkInput = class('NetworkInput', InputSource)

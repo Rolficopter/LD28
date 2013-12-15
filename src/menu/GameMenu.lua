@@ -1,4 +1,3 @@
-local class = require 'lib/middleclass'
 local Menu = require 'menu/Menu'
 
 local World = require 'World'
