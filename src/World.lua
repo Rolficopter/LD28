@@ -41,7 +41,7 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
+  self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
 end
 
 -- Update logic
