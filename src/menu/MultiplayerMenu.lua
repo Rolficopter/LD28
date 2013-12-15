@@ -26,10 +26,10 @@ function MultiplayerMenu:initClient(ip)
 	self.client = lube.udpClient()
 	self.client.handshake = Constants.NET.HANDSHAKE
 	self.client:setPing(true, Constants.NET.PING.TIMEOUT, Constants.NET.MSG)
-	local success, error = self.client:connect(ip, Constants.NET.PORT)
+	local success, err = self.client:connect(ip, Constants.NET.PORT)
 
 	if ( not success ) then
-		error(error)
+		error(err)
 	end
 end
 
