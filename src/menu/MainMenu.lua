@@ -79,6 +79,7 @@ function MainMenu:update(dt)
     local textWidth = self.fontTextArimo:getWidth(self.textStartServer)
     rectangleX = love.graphics.getWidth() / 2 - textWidth / 2
     rectangleY = love.graphics.getHeight() / 2
+    rectangleWidth = textWidth
   elseif self.currentSelection == 2 then
     local textWidth = self.fontTextArimo:getWidth(self.textStartClient)
     rectangleX = love.graphics.getWidth() / 2 - textWidth / 2
@@ -135,7 +136,7 @@ function MainMenu:render()
   love.graphics.printf(text, 0, love.graphics.getHeight() / 2 -200, love.graphics.getWidth(), "center")
 
   love.graphics.setColor({255, 255, 255, 255})
-  love.graphics.rectangle("fill", love.graphics.getWidth() / 2 - self.fontTextArimo:getWidth(self.textStartClient) / 2, love.graphics.getHeight() / 2 - 70,  math.max(self.fontHeadingArimo:getWidth(self.textStartGame), self.fontTextArimo:getWidth(self.textStartClient)), self.fontTextArimo:getHeight() * 2 + 150)
+  love.graphics.rectangle("fill", love.graphics.getWidth() / 2 - ( self.fontTextArimo:getWidth(self.textStartClient) + 20 ) / 2, love.graphics.getHeight() / 2 - 70,  self.fontTextArimo:getWidth(self.textStartClient) + 20, self.fontTextArimo:getHeight() * 2 + 150)
  
   love.graphics.setFont(self.fontTextArimo)
   love.graphics.setColor({0, 0, 0, 255})
