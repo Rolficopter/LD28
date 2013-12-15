@@ -5,7 +5,8 @@ KeyboardAndMouseInput = class('KeyboardAndMouseInput', InputSource)
 
 local keyboard = love.keyboard
 
-function KeyboardAndMouseInput:initialize()
+function KeyboardAndMouseInput:initialize(world)
+  InputSource:initialize(world)
   self.jumpWasPressed = false
 end
 

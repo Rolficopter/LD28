@@ -10,8 +10,8 @@ InputSource.Direction = {
   up = 'up'
 }
 
-function InputSource:initialize()
-  
+function InputSource:initialize(world)
+  self.world = world
 end
 
 function InputSource:shouldJump()

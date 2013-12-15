@@ -8,8 +8,7 @@ Player = class('Player', Entity)
 function Player:initialize(world, x, y, inputSource)
   Entity:initialize(world)
   self.inputSource = inputSource
-
-  self.body = love.physics.newBody(self.world, x, y, 'dynamic')
+  self.body = love.physics.newBody(self:getWorld(), x, y, 'dynamic')
   self.body:setFixedRotation(true)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
