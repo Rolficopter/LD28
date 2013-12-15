@@ -1,4 +1,5 @@
 local Drawable = require 'Drawable'
+local Constants = require 'conf'
 
 Entity = class('Entity', Drawable)
 
@@ -7,15 +8,16 @@ function Entity:initialize(worldObject)
   Drawable:initialize()
 
   self.world = worldObject -- this is our own class!
-  
   self.body = nil
   self.shape = nil
   self.fixture = nil
 end
+
 function Entity:createFixture()
   self.fixture = love.physics.newFixture(self.body, self.shape, 1)
   self.fixture:setUserData(Entity.name)
 end
+
 function Entity:getWorld()
   return self.world.world
 end

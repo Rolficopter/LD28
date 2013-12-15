@@ -22,6 +22,7 @@ function love.update(dt)
   game:update(dt)
 
   love.keyboard.updateKeys()
+
 end
 
 love.keyboard.keysPressed = { }
