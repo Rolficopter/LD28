@@ -13,6 +13,7 @@ function Entity:initialize(worldObject)
 end
 function Entity:createFixture()
   self.fixture = love.physics.newFixture(self.body, self.shape, 1)
+  self.fixture:setUserData(Entity.name)
 end
 function Entity:getWorld()
   return self.world.world
