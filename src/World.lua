@@ -34,6 +34,7 @@ function World:loadMap(name)
     entity.body = love.physics.newBody(entity:getWorld(), object.x + object.width / 2, object.y + object.height / 2, 'static')
     entity.shape = love.physics.newRectangleShape(object.width, object.height)
     entity:createFixture()
+    entity.fixture:setUserData("map")
 
     table.insert(self.entities, entity)
   end
