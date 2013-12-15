@@ -10,7 +10,7 @@ function Game:initialize()
   self.menu = MenuManager:new()
 
   if Constants.DEBUG then
-  	self.menu:switchTo(Constants.MENU.GAME.NAME)
+  	self.menu:switchTo(Constants.MENU.MAIN.NAME)
   else
   	self.menu:switchTo(Constants.MENU.MAIN.NAME)
   end

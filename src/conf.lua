@@ -6,6 +6,10 @@ Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
 Constants.VERSION = "0.0.2"
 Constants.LOVE_VERSION = "0.8.0"
 
+Constants.NET = {}
+Constants.NET.PORT = 36890
+Constants.NET.HANDSHAKE = Constants.TITLE .. Constants.VERSION
+
 Constants.ASSETS = {}
 Constants.ASSETS.ROOT = 'assets/'
 Constants.ASSETS.MAPS = Constants.ASSETS.ROOT .. 'maps/'
@@ -23,6 +27,8 @@ Constants.MENU.MAIN.HEADING_SIZE = 40
 Constants.MENU.MAIN.TEXT_SIZE = 30
 Constants.MENU.GAME = {}
 Constants.MENU.GAME.NAME = 'game'
+Constants.MENU.NET = {}
+Constants.MENU.NET.NAME = 'net'
 
 Constants.GRAVITY = {}
 Constants.GRAVITY.X = 0

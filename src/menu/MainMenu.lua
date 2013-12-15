@@ -13,6 +13,8 @@ function MainMenu:initialize()
   self.currentSelection = 0
 
   self.textStartGame = "Start Game"
+  self.textStartServer = "Start Server"
+  self.textStartClient = "Connect to Server"
   self.textQuit = "Quit"
 
   self.cursor = {}
@@ -41,10 +43,14 @@ function MainMenu:update(dt)
   end
 
   if love.keyboard.isDown("return") then
+    self.menuMusic:stop()
     if self.currentSelection == 0 then
-      self.menuMusic:stop()
       self:switchToMenu(Constants.MENU.GAME.NAME)
     elseif self.currentSelection == 1 then
+      self:switchToMenu(Constants.MENU.NET.NAME, true)
+    elseif self.currentSelection == 2 then
+      self:switchToMenu(Constants.MENU.NET.NAME, false)
+    elseif self.currentSelection == 3 then
       love.event.quit()
     end
   end
