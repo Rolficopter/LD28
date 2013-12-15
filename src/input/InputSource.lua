@@ -22,7 +22,7 @@ function InputSource:getDirection()
   return InputSource.Direction.none
 end
 
-function InputSource:getArmAngle()
+function InputSource:getArmAngle(centerX, centerY)
   return 0
 end
 
