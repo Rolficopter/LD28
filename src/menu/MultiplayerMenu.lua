@@ -5,20 +5,9 @@ require 'lib/LUBE'
 
 MultiplayerMenu = class('MultiplayerMenu', GameMenu)
 
-local instance = nil
-local clientConnected = function(ip, port)
-	-- TODO
-end
-local clientDisconnected = function(ip, port)
-	-- TODO
-end
-local receiveCallback = function(data, ip, port)
-end
-
 function MultiplayerMenu:initialize(isServer, ip)
 	instance = self
 	GameMenu:initialize()
-	self.isServer = isServer
 
 	if isServer then
 		self:initServer()
@@ -28,23 +17,28 @@ function MultiplayerMenu:initialize(isServer, ip)
 	end
 end
 function MultiplayerMenu:initServer()
-	lube.server.Init(Constants.NET.PORT)
-	lube.server.setCallback(receiveCallback, clientConnected, clientDisconnected)
-	lube.server.setHandshake(Constants.NET.HANDSHAKE)
+	self.server = lube.udpServer()
+	self.server.handshake = Constants.NET.HANDSHAKE
+	self.server:setPing(true, Constants.NET.PING.TIMEOUT * 3, Constants.NET.PING.MSG)
+	self.server:listen(Constants.NET.PORT)
 end
 function MultiplayerMenu:initClient(ip)
-	lube.client.Init()
-	lube.client.setCallback(receiveCallback)
-	lube.client.setHandshake(Constants.NET.HANDSHAKE)
-	lube.client.connect(ip, Constants.NET.PORT)
+	self.client = lube.udpClient()
+	self.client.handshake = Constants.NET.HANDSHAKE
+	self.client:setPing(true, Constants.NET.PING.TIMEOUT, Constants.NET.MSG)
+	local success, error = self.client:connect(ip, Constants.NET.PORT)
+
+	if ( not success ) then
+		error(error)
+	end
 end
 
 function MultiplayerMenu:update(dt)
-	if self.isServer then
-		lube.server.update()
+	if self.server then
+		self.server:update(dt)
 	end
 
-	lube.client.update()
+	self.client:update(dt)
 end
 
 return MultiplayerMenu

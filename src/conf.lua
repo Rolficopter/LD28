@@ -8,7 +8,10 @@ Constants.LOVE_VERSION = "0.8.0"
 
 Constants.NET = {}
 Constants.NET.PORT = 36890
-Constants.NET.HANDSHAKE = Constants.TITLE .. Constants.VERSION
+Constants.NET.HANDSHAKE = "HDSHK" .. Constants.TITLE .. Constants.VERSION
+Constants.NET.PING = {}
+Constants.NET.PING.MSG = Constants.TITLE .. Constants.VERSION
+Constants.NET.PING.TIMEOUT = 10000
 
 Constants.ASSETS = {}
 Constants.ASSETS.ROOT = 'assets/'
