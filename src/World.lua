@@ -10,13 +10,15 @@ local atl = require 'lib/advanced-tiled-loader/Loader'
 World = class('World', Drawable)
 
 function World:initialize()
+  self.entities = {}
+
   -- load world
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
+
   -- load map
   atl.path = Constants.ASSETS.MAPS
   self.map = nil
-  self.collisionFields = {}
   self:loadMap('Map.tmx')
 end
 
@@ -33,7 +35,7 @@ function World:loadMap(name)
     entity.shape = love.physics.newRectangleShape(object.width, object.height)
     entity:createFixture()
 
-    table.insert(self.collisionFields, entity)
+    table.insert(self.entities, entity)
   end
 
   -- place player at random spawnpoint
@@ -42,11 +44,14 @@ function World:loadMap(name)
   playerLocationObject = spawns[randomSpawnNumber]
 
   self.player = Player:new(self.world, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
+  table.insert(self.entities, self.player)
 end
 
 -- Update logic
 function World:update(dt)
-  self.player:update(dt)
+  for i, ent in pairs( self.entities ) do
+    ent:update(dt)
+  end 
   
   self.world:update(dt)
 end
@@ -62,7 +67,9 @@ function World:render()
     self.map:draw()
   end
   
-  self.player:render()
+  for i, ent in pairs( self.entities ) do
+    ent:render()
+  end 
 end
 
 return World
