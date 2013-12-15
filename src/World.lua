@@ -49,8 +49,8 @@ function World:loadMap(name)
 end
 
 -- Insert Bullet
-function World:insertBullet(angle)
-	table.insert(self.entities, Bullet:new(self, self.player.body:getX(), self.player.body:getY(), angle))
+function World:insertBullet(angle, posX, posY)
+	table.insert(self.entities, Bullet:new(self, posX, posY, angle))
   return self
 end
 

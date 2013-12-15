@@ -7,7 +7,7 @@ Bullet = class('Bullet', Entity)
 -- Init logic
 function Bullet:initialize(gameWorld, x, y, angle)
   Entity:initialize(world)
-  
+
   self.gameWorld = gameWorld
   self.body = love.physics.newBody(gameWorld.world, x, y, 'dynamic')
   self.body:setFixedRotation(true)
@@ -19,6 +19,12 @@ function Bullet:initialize(gameWorld, x, y, angle)
   else
  		self.body:applyLinearImpulse(-Constants.SIZES.BULLET.SPEED, -Constants.SIZES.BULLET.SPEED*math.tan(angle))
   end
+end
+
+
+function Bullet:update(dt)
+	Entity:update(dt)
+
 end
 
 return Bullet

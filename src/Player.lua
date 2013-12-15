@@ -108,8 +108,15 @@ function Player:update(dt)
  -- Determine if Player shot
   if love.mouse.isDown("l") then
     if self.world then
-      self.world = self.world:insertBullet(self.armRotation)
-      print(self.world)
+	  local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
+      local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
+	  local scaleArmX = self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getWidth()
+	  local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
+	  if self.armRotation < -14.22 then
+		self.world = self.world:insertBullet(self.armRotation, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 + self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE + 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET)
+	  else
+		self.world = self.world:insertBullet(self.armRotation, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 - self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE - 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET)
+	  end
     end
   end
 end
