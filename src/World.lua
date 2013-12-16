@@ -16,7 +16,6 @@ function World:initialize(networkClient)
   self.player = nil
   self.players = {}
   self.entities = {}
-  self.players = {}
   self.networkClient = networkClient
   self.clientID = nil -- is the server uuid
 
