@@ -121,7 +121,7 @@ function Server:onData(data, clientID)
 	local id, message, messageData = inputs[1], inputs[2], inputs[3]
 	if message == 'Player' then
 		self:sendBroadcast('Player' .. ':' .. messageData, clientID)
-	elseif message = 'shoot' then
+	elseif message == 'shoot' then
 		self.shootablePlayers = self.shootablePlayers - 1
 
 		if self.shootablePlayers == 0 then

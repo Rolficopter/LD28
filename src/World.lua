@@ -143,7 +143,7 @@ local updateWithNetworkInput = function(self, input)
       local mapName = data
       self:loadMap(mapName .. '.tmx')
     end
-    if message = 'ShootReset' then
+    if message == 'ShootReset' then
       for id, p in pairs(self.players) do
         p.canShoot = true
       end
