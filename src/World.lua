@@ -98,15 +98,15 @@ function World:loadMap(name)
 
   if not self:isNetworkedWorld() then
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
-    table.insert(self.players, self.player)
+    self:addPlayer(clientID, player)
 
     local randomSpawnNumber2 = math.random(1, table.getn(spawns))
     playerLocationObject2 = spawns[randomSpawnNumber2]
     local ai = Player:new(self, playerLocationObject2.x, playerLocationObject2.y, AIInput:new(self))
-    table.insert(self.players, ai)
+    self:addPlayer(clientID, ai)
   else
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false, self.clientID))
-    self.players[self.clientID] = self.player
+    self:addPlayer(self.clientID, self.player)
     -- other players created on message
 
     self:announceOwnPlayer()
@@ -122,6 +122,10 @@ function World:insertBullet(angle, posX, posY)
     self:sendMessage('Bullet', angle .. ',' .. posX .. ',' .. posY)
   end
   return self
+end
+function World:addPlayer(clientID, player)
+  self.players[clientID] = player
+  self.entities[clientID] = player
 end
 
 -- Update logic
@@ -160,7 +164,7 @@ local updateWithNetworkInput = function(self, input)
       print("New player with id", clientID, " at ", spawnX .. "," .. spawnY)
 
       local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, true, clientID))
-      self.players[clientID] = player
+      self:addPlayer(clientID, player)
     end
   end
 end
@@ -178,8 +182,6 @@ function World:update(dt)
     if networkData and player.inputSource then
       player.inputSource:updateFromExternalInput(networkData)
     end
-
-    player:update(dt)
   end
   for i, ent in pairs( self.entities ) do
     ent:update(dt)
@@ -203,9 +205,6 @@ function World:render()
     self.map:autoDrawRange(translateX, translateY, 1, 0)
     self.map:draw()
 
-    for id, player in pairs( self.players ) do
-      player:render()
-    end
     for i, ent in pairs( self.entities ) do
       ent:render()
     end
