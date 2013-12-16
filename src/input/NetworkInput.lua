@@ -25,7 +25,24 @@ end
 function NetworkInput:updateFromExternalInput(networkClientData)
 	KeyboardAndMouseInput:updateFromExternalInput(networkClientData)
 
-	-- TODO implement external input
+	if self.isRemote then
+		local inputs = networkClientData:split(':')
+		local message = inputs[1]
+		local data = inputs[2]
+
+		if message == 'jump' then
+			self.lastShouldJump = true
+		end
+		if message == 'shoot' then
+			self.lastShouldShoot = true
+		end
+		if message == 'direction' then
+			self.lastDirection = data
+		end
+		if message == 'armAngle' then
+			self.lastArmAngle = tonumber(data)
+		end
+	end
 end
 
 function NetworkInput:shouldJump()
