@@ -18,7 +18,7 @@ function NetworkInput:sendMessage(message, data)
 		msg = msg .. ':' .. data
 	end
 
-	print("Sending " .. message .. ", data:", data)
+	-- print("Sending " .. message .. ", data:", data)
 	self.networkClient:send(msg)
 end
 
