@@ -26,6 +26,7 @@ local Entity = require 'Entity'
 local Player = require 'Player'
 local Bullet = require 'Bullet'
 local KeyboardInput = require 'input/KeyboardAndMouseInput'
+local AIInput = require 'input/AIInput'
 local NetworkInput = require 'input/NetworkInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
@@ -78,8 +79,7 @@ function World:loadMap(name)
   if not self:isNetworkedWorld() then
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
     table.insert(self.entities, self.player)
-    -- clone for now
-    local ai = Player:new(self, playerLocationObject.x + 50, playerLocationObject.y, KeyboardAndMouseInput:new())
+    local ai = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
     table.insert(self.entities, ai)
   else
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false))

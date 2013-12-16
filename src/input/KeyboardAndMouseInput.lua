@@ -21,6 +21,10 @@ function KeyboardAndMouseInput:shouldJump()
   return self.jumpWasPressed
 end
 
+function InputSource:shouldShoot()
+  return love.mouse.isDown("l")
+end
+
 function KeyboardAndMouseInput:getDirection()
   local direction = InputSource.Direction.none
 
