@@ -38,6 +38,21 @@ module.exports = function(grunt) {
         command: function() {
           switch ( require('os').platform() ) {
             case 'win32': // windows
+              return 'love ./src';
+            case 'darwin': // os x
+              return 'open -n -a love ./src';
+            default:
+              return 'love ./src';
+          }
+        }
+      },
+      debug: {
+        options: {
+          stdout: true // enable logging
+        },
+        command: function() {
+          switch ( require('os').platform() ) {
+            case 'win32': // windows
               return 'love ./src --console';
             case 'darwin': // os x
               return '/Applications/love.app/Contents/MacOS/love ./src';
@@ -55,5 +70,6 @@ module.exports = function(grunt) {
   
   grunt.registerTask('dist', [ 'compress:dist', 'rename:dist' ]);
   grunt.registerTask('run', [ 'shell:run' ])
+  grunt.registerTask('debug', [ 'shell:debug' ])
   
 };
