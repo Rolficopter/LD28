@@ -11,7 +11,7 @@ local Drawable = require 'Drawable'
 local Entity = require 'Entity'
 local Player = require 'Player'
 local Bullet = require 'Bullet'
-local KeyboardInput = require 'input/KeyboardAndMouseInput'
+local AIInput = require 'input/AIInput'
 local NetworkInput = require 'input/NetworkInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
@@ -54,8 +54,10 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
+  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
+  self.player2 = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
   table.insert(self.entities, self.player)
+  table.insert(self.entities, self.player2)
   --table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
 end
 

@@ -137,7 +137,7 @@ function Player:update(dt)
    self.armRotationRight = self.inputSource:getArmAngle(-Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
 
  -- Determine if Player shot
-  if love.mouse.isDown("l") then
+  if self.inputSource:shouldShoot() then
     if self.world then
 
 	  if love.mouse.getX() > love.graphics.getWidth() / 2 then

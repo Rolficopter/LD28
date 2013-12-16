@@ -21,6 +21,10 @@ function InputSource:shouldJump()
   return false
 end
 
+function InputSource:shouldShoot()
+  return false
+end
+
 function InputSource:getDirection()
   return InputSource.Direction.none
 end
