@@ -56,10 +56,6 @@ function Server:update( dt )
 	self.server:update(dt)
 
 	processClientMessages(self)
-
-	if math.random(0, 3 * 60) then
-
-	end
 end
 
 return Server
