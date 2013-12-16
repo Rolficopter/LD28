@@ -3,30 +3,6 @@ local Entity = require 'Entity'
 
 Player = class('Player', Entity)
 
-local instance = nil
--- Callbacks
-local _checkForGroundCollision = function(a, b, coll, begin)
-  if a == instance.groundSensor.fixture or b == instance.groundSensor.fixture then
-
-    local userData = nil
-    if a == instance.groundSensor.fixture then
-      userData = b:getUserData()
-    elseif b == instance.groundSensor.fixture then
-      userData = a:getUserData()
-    end
-    if userData == "map" or userData == "player" or userData == "bullet" then
-      instance.onGround = begin
-    end
-
-  end
-end
-local _worldCollision_BeginContact = function(a, b, coll)
-  _checkForGroundCollision(a, b, coll, true)
-end
-local _worldCollision_EndContact = function(a, b, coll)
-  _checkForGroundCollision(a, b, coll, false)
-end
-
 -- Init logic
 function Player:initialize(world, x, y, inputSource)
   Entity:initialize(world)
@@ -48,8 +24,6 @@ function Player:initialize(world, x, y, inputSource)
   self.groundSensor.fixture:setFriction(0)
   self.groundSensor.fixture:setSensor(true)
   self.groundSensor.joint = love.physics.newWeldJoint(self.body, self.groundSensor.body, self.body:getX(), self.body:getY(), false)
-  self:getWorld():setCallbacks(_worldCollision_BeginContact, _worldCollision_EndContact, nil, nil)
-  instance = self
 
   self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
   self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
@@ -71,6 +45,30 @@ function Player:initialize(world, x, y, inputSource)
   self.rightGoingLeft = true
 
   self.canShoot = true
+end
+
+function Player:worldCollisionBeginContact(a, b, coll)
+  self:checkForGroundCollision(a, b, coll, true)
+end
+
+function Player:worldCollisionEndContact(a, b, coll)
+  self:checkForGroundCollision(a, b, coll, false)
+end
+
+function Player:checkForGroundCollision(a, b, coll, begin)
+
+  if a == self.groundSensor.fixture or b == self.groundSensor.fixture then
+    if a == self.groundSensor.fixture then
+      if b:getUserData() == "map" then
+        self.onGround = begin
+      end
+    elseif b == self.groundSensor.fixture then
+      if a:getUserData() == "map" then
+        self.onGround = begin
+      end
+    end
+
+  end
 end
 
 function Player:update(dt)
@@ -139,7 +137,7 @@ function Player:update(dt)
   local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
   local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
   local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
-   
+
   self.armRotationLeft = self.inputSource:getArmAngle(Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET + self.armTexture:getWidth() * scaleArmX / 2)
   self.armRotationRight = self.inputSource:getArmAngle(-Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
 
@@ -174,6 +172,7 @@ function Player:render()
 
   local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
   local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
+
 
   love.graphics.draw(self.bodyTexture, baseX, baseY, 0, scaleBodyX, scaleBodyY)
   love.graphics.draw(self.leftLegTexture, baseX - Constants.SIZES.PLAYER.LEG_X_OFFSET + self.leftLegTexture:getWidth() * scaleLeftLegX + 12.5, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.leftLegRotation, scaleLeftLegX, scaleLeftLegY, self.leftLegTexture:getWidth() / 2, 2)
