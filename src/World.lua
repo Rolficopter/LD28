@@ -85,9 +85,7 @@ end
 -- Update logic
 local updateWithNetworkInput = function(self, input)
   if string.starts(input, "Map") then
-    local mapName = string.sub(input, 5, string.len(input) - 5)
-    print("Load new map:", mapName)
-
+    local mapName = string.sub(input, 5, string.len(input))
     self:loadMap(mapName .. '.tmx')
   end
 end
@@ -95,9 +93,8 @@ function World:update(dt)
   if self:isNetworkedWorld() then
     local networkData = self.networkClient:receive()
     if networkData then
-      print(networkData)
-
-      -- TODO parse network data and add forces etc
+      -- print(networkData)
+      updateWithNetworkInput(self, networkData)
     end
   end
 
@@ -115,17 +112,23 @@ end
 
 -- Render logic
 function World:render()
-  local translateX = Constants.SCREEN.WIDTH / 2 - self.player.body:getX()
-  local translateY = Constants.SCREEN.HEIGHT / 2 - self.player.body:getY()
+  if self.player then
+    local translateX = Constants.SCREEN.WIDTH / 2 - self.player.body:getX()
+    local translateY = Constants.SCREEN.HEIGHT / 2 - self.player.body:getY()
 
-  love.graphics.translate(translateX, translateY)
+    love.graphics.translate(translateX, translateY)
+  end
+
   if self.map then
     self.map:autoDrawRange(translateX, translateY, 1, 0)
     self.map:draw()
-  end
 
-  for i, ent in pairs( self.entities ) do
-    ent:render()
+    for i, ent in pairs( self.entities ) do
+      ent:render()
+    end
+  else
+    -- Loading screen
+    love.graphics.printf("Waiting for server...", love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, love.graphics.getWidth() / 2, "left")
   end
 end
 
