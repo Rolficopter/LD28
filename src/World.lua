@@ -107,7 +107,7 @@ function World:loadMap(name)
     table.insert(self.players, ai)
   else
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false, self.clientID))
-    self.entities[self.clientID] = self.player
+    self.players[self.clientID] = self.player
     -- other players created on message
 
     self:announceOwnPlayer()
