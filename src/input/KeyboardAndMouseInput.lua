@@ -21,7 +21,7 @@ function KeyboardAndMouseInput:shouldJump()
   return self.jumpWasPressed
 end
 
-function InputSource:shouldShoot()
+function KeyboardAndMouseInput:shouldShoot()
   return love.mouse.isDown("l")
 end
 
