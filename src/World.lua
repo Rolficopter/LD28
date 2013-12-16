@@ -53,11 +53,16 @@ function World:loadMap(name)
   local spawns = self.map("SpawnPoints").objects
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
+  local randomSpawnNumber2 = math.random(1, table.getn(spawns))
+  playerLocationObject2 = spawns[randomSpawnNumber2]
 
+  self.players = {}
   self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
-  self.player2 = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
+  self.player2 = Player:new(self, playerLocationObject2.x, playerLocationObject2.y, AIInput:new(self))
   table.insert(self.entities, self.player)
   table.insert(self.entities, self.player2)
+  table.insert(self.players, player)
+  table.insert(self.players, player2)
   --table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
 end
 

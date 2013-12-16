@@ -36,9 +36,10 @@ function AIInput:shouldShoot()
 	self:rayTracing()
 	local angle2Rad = math.pi/180
 	for i, ent in pairs( Ray.hitList ) do
-		for j, potentialPlayer in pairs( self.world.entities ) do
-			if potentialPlayer:isInstanceOf(Player) and ent.x >= potentialPlayer.body:getX() and ent.x <= potentialPlayer.body:getX() + Constants.SIZES.PLAYER.X and ent.y >= potentialPlayer.body:getY() and ent.y <= potentialPlayer.body:getY() + Constants.SIZES.PLAYER.Y  then
-				armRotation = (i-1)*5/angle2Rad
+		for j, player in pairs( self.world.players) do
+			if ent.x >= player.body:getX() and ent.x <= player.body:getX() + Constants.SIZES.PLAYER.X and ent.y >= player.body:getY() and ent.y <= player.body:getY() + Constants.SIZES.PLAYER.Y  then
+				armRotation = (360-(i-1)*5)/angle2Rad
+				print("-----------")
 				return true
 			end
 	end
@@ -80,11 +81,11 @@ function AIInput:rayTracing()
    Ray.hitList = {}
    local angle2Rad = math.pi/180
    for i = 0, 360, 5 do
-	  local x = math.cos(angle2Rad*i) * 500
-	  local y = math.sin(angle2Rad*i) * 500
+	  local x = math.cos(angle2Rad*i) * 200
+	  local y = math.sin(angle2Rad*i) * 200
 	  self.world.world:rayCast(
-	  self.world.player.body:getX(),
-	  self.world.player.body:getY(),
+	  self.world.player.body:getX()+x/1.5,
+	  self.world.player.body:getY()+x/1.5,
 	  self.world.player.body:getX()+x,
 	  self.world.player.body:getY()+y,
 	  worldRayCastCallback)

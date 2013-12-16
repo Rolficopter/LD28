@@ -136,7 +136,7 @@ function Player:update(dt)
   local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
   local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
   local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
-   
+
   self.armRotationLeft = self.inputSource:getArmAngle(Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET + self.armTexture:getWidth() * scaleArmX / 2)
   self.armRotationRight = self.inputSource:getArmAngle(-Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
 
@@ -146,7 +146,7 @@ function Player:update(dt)
       local bulletRotation = self.inputSource:getArmAngle(0, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
       local magicNumber = 35
       self.world = self.world:insertBullet(bulletRotation, baseX - math.cos(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_X_OFFSET + 10, baseY - math.sin(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_Y_OFFSET - self.leftWeaponTexture:getHeight() * scaleWeaponY / 2)
-      self.canShoot = false
+      --self.canShoot = false
     end
   end
 end
@@ -171,6 +171,21 @@ function Player:render()
 
   local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
   local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
+local angle2Rad = math.pi/180
+   for i = 0, 360, 5 do
+	  local x = math.cos(angle2Rad*i) * 200
+	  local y = math.sin(angle2Rad*i) * 200
+  love.graphics.setLineWidth(3)
+    love.graphics.setColor(255, 0, 0, 255)
+    love.graphics.line(
+		  self.body:getX()+x/1.5,
+		  self.body:getY()+y/1.5,
+		  self.body:getX()+2*x,
+	  self.body:getY()+2*y)
+	  love.graphics.setLineWidth(1)
+	end
+
+
 
   love.graphics.draw(self.bodyTexture, baseX, baseY, 0, scaleBodyX, scaleBodyY)
   love.graphics.draw(self.leftLegTexture, baseX - Constants.SIZES.PLAYER.LEG_X_OFFSET + self.leftLegTexture:getWidth() * scaleLeftLegX + 12.5, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.leftLegRotation, scaleLeftLegX, scaleLeftLegY, self.leftLegTexture:getWidth() / 2, 2)
