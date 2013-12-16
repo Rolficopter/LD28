@@ -15,7 +15,6 @@ local server_recv = function(data, clientID)
 	instance:onData(data, clientID)
 end
 
-
 local initServer = function(self)
 	self.server = lube.udpServer()
 	self.server.handshake = Constants.NET.HANDSHAKE
@@ -34,6 +33,15 @@ function Server:initialize()
 
 	initServer(self)
 	self.clientIds = {}
+	self.UUIDs = {}
+end
+
+function Server:getUUID(clientID)
+	if not self.UUIDs[clientID] then
+		self.UUIDs[clientID] = table.getn(self.UUIDs) + 1 -- 0 is server
+	end
+
+	return self.UUIDs[clientID]
 end
 
 function Server:update( dt )
@@ -59,7 +67,7 @@ function Server:sendBroadcast(data, senderClientID)
 end
 function Server:sendMessage(data, receiverClientID)
 	-- send message to one client
-	print("Message to client.", "ID:", receiverClientID, "Data:", data)
+	print("Message to client.", "ID:", receiverClientID .. '(' .. self:getUUID(receiverClientID) .. ')', "Data:", data)
 	data = Constants.NET.ID_SERVER .. data
 	self.server:send(data, receiverClientID)
 end
@@ -83,7 +91,7 @@ function Server:onNewClient(clientID)
 	print("New client:", clientID)
 
 	-- setup new client
-	self:sendMessage('ID:' .. clientID, clientID)
+	self:sendMessage('ID:' .. self:getUUID(clientID), clientID)
 	self:sendMessage('Map:Map', clientID) -- let him load the maps
 	-- notify other clients when we know the new one's x and y
 	-- other clients are unknown at this time...
