@@ -74,7 +74,12 @@ end
 function Server:onNewClient(clientID)
 	print("New client:", clientID)
 
+	self:sendMessage('ID:' .. clientID, clientID)
 	self:sendMessage('Map:Map', clientID)
+
+	local spawnX = 24.594 * Constants.SIZES.METER
+	local spawnY = 33.406 * Constants.SIZES.METER
+	self:sendMessage('Player:Test,' .. spawnX .. "," .. spawnY, clientID)
 end
 -- disconnect
 function Server:onClientLost(clientID)
