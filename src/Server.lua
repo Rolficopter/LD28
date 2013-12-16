@@ -49,6 +49,11 @@ local processClientMessages = function(self)
 	if ( data and clientID ) then
 		saveClientID(self, clientID)
 
+		if data == Constants.NET.PING.MSG then
+			-- don't transfer ping messages
+			return
+		end
+
 		self:sendData(data, clientID)
 	end
 end
