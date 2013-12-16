@@ -22,7 +22,7 @@ function NetworkInput:sendMessage(message, data)
 		msg = msg .. ':' .. data
 	end
 
-	-- print("Sending " .. message .. ", data:", data)
+	print("Sending " .. message .. ", data:", data)
 	self.networkClient:send(msg)
 end
 
@@ -54,12 +54,10 @@ function NetworkInput:updateFromExternalInput(networkClientData)
 end
 
 function NetworkInput:shouldJump()
-	self.lastShouldJump = false
-
 	if not self:isRemote() then
 		local shouldJump = KeyboardAndMouseInput:shouldJump()
 
-		if shouldJump then
+		if shouldJump and self.lastShouldJump ~= shouldJump then
 			self.lastShouldJump = shouldJump
 			self:sendMessage('jump')
 		end
@@ -69,12 +67,10 @@ function NetworkInput:shouldJump()
 end
 
 function NetworkInput:shouldShoot()
-  self.lastShouldShoot = false
-
   if not self:isRemote() then
   	local shouldShoot = KeyboardAndMouseInput:shouldShoot()
 
-  	if shouldShoot then
+  	if shouldShoot and self.lastShouldShoot ~= shouldShoot then
   		self.lastShouldShoot = shouldShoot
   		self:sendMessage('shoot')
   	end
