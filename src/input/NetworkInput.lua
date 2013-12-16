@@ -25,7 +25,7 @@ end
 function NetworkInput:updateFromExternalInput(networkClientData)
 	KeyboardAndMouseInput:updateFromExternalInput(networkClientData)
 
-	error("Not implemented")
+	-- TODO implement external input
 end
 
 function NetworkInput:shouldJump()
