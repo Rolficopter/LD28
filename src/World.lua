@@ -188,6 +188,21 @@ function World:update(dt)
   end
 
   self.world:update(dt)
+
+  local allShot = true
+
+  for i, p in pairs(self.players) do
+    if p.canShoot then
+      allShot = false
+    end
+  end
+
+  if allShot then
+    for i, p in pairs(self.players) do
+      p.canShoot = true
+      -- TODO: can shoot broadcast!
+    end
+  end
 end
 
 -- Render logic
