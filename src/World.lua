@@ -33,6 +33,7 @@ function World:initialize(networkClient)
     self:loadMap('Map.tmx')
   end
 
+  assert(not instance, "Only one world can be created.")
   instance = self
 end
 function World:isNetworkedWorld()
