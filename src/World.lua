@@ -92,7 +92,10 @@ end
 
 -- Insert Bullet
 function World:insertBullet(angle, posX, posY)
-	table.insert(self.entities, Bullet:new(self, posX, posY, angle))
+  table.insert(self.entities, Bullet:new(self, posX, posY, angle))
+  if self:isNetworkedWorld() then
+    self.networkClient:send('Bullet:' .. angle .. ',' .. posX .. ',' .. posY)
+  end
   return self
 end
 
