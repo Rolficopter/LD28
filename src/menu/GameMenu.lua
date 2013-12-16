@@ -48,8 +48,10 @@ function GameMenu:renderScoreTable()
   for i, p in pairs(players) do
     local x = 0
     local y = c * 30
-    love.graphics.print(p.inputSource.clientID, 110 + x, 150 + y)
-    love.graphics.print(p.points, 110 + x + love.graphics.getWidth() - 100 * 2 - 50, 150 + y)
+    if p.inputSource.clientId then
+      love.graphics.print(p.inputSource.clientID, 110 + x, 150 + y)
+      love.graphics.print(p.points, 110 + x + love.graphics.getWidth() - 100 * 2 - 50, 150 + y)
+    end
     c = c + 1
   end
 end
