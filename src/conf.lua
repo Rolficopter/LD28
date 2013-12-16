@@ -12,6 +12,7 @@ Constants.NET.HANDSHAKE = "HDSHK" .. Constants.TITLE .. Constants.VERSION
 Constants.NET.PING = {}
 Constants.NET.PING.MSG = Constants.TITLE .. Constants.VERSION
 Constants.NET.PING.TIMEOUT = 10000
+Constants.NET.ID_SERVER = "0:"
 
 Constants.ASSETS = {}
 Constants.ASSETS.ROOT = 'assets/'

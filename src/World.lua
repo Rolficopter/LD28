@@ -86,30 +86,35 @@ end
 local updateWithNetworkInput = function(self, input)
   local inputs = input:split(":")
 
-  if inputs[1] == "ID" then
-    self.clientID = inputs[2]
-  end
-  if inputs[1] == "Map" then
-    local mapName = string.sub(input, 5, string.len(input))
-    self:loadMap(mapName .. '.tmx')
-  end
-  if inputs[1] == "Player" then
-    local data = inputs[2]:split(",")
-    local clientID = inputs[1]
-    local spawnX = tonumber(inputs[2])
-    local spawnY = tonumber(inputs[3])
+  if inputs[1] == '0' then
+    local message = inputs[2]
+    local data = inputs[3]
 
-    for id, player in pairs(self.players) do
-      if id == clientID then
-        player.body:setX(spawnX)
-        player.body:setY(spawnY)
-
-        return
-      end
+    if message == 'ID' then
+      self.clientID = inputs[3]
     end
+    if message == 'Map' then
+      local mapName = data
+      self:loadMap(mapName .. '.tmx')
+    end
+    if message == 'Player' then
+      data = data:split(",")
+      local clientID = data[1]
+      local spawnX = tonumber(data[2])
+      local spawnY = tonumber(data[3])
 
-    local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, false))
-    self.players[clientID] = player
+      for id, player in pairs(self.players) do
+        if id == clientID then
+          player.body:setX(spawnX)
+          player.body:setY(spawnY)
+
+          return
+        end
+      end
+
+      local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, clientID))
+      self.players[clientID] = player
+    end
   end
 end
 function World:update(dt)
@@ -124,7 +129,6 @@ function World:update(dt)
 
   for id, player in pairs( self.players ) do
     if networkData and player.inputSource then
-      print("Update input source")
       player.inputSource:updateFromExternalInput(networkData)
     end
 

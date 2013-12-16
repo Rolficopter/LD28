@@ -2,18 +2,21 @@ local KeyboardAndMouseInput = require 'input/KeyboardAndMouseInput'
 
 NetworkInput = class('NetworkInput', KeyboardAndMouseInput)
 
-function NetworkInput:initialize(world, networkClient, isRemote)
+function NetworkInput:initialize(world, networkClient, remoteClientID)
 	InputSource:initialize(world)
-	self.isRemote = isRemote -- is the client 
+	self.clientID = remoteClientID
 	self.networkClient = networkClient
 
 	self.lastDirection = InputSource.Direction.none
 	self.lastArmAngle = 0
 	self.lastShouldJump = false
 end
+function NetworkInput:isRemote()
+	return self.clientID ~= nil
+end
 
 function NetworkInput:sendMessage(message, data)
-	local msg = message
+	local msg = self.clientID .. ':' .. message
 	if data then
 		msg = msg .. ':' .. data
 	end
@@ -25,30 +28,34 @@ end
 function NetworkInput:updateFromExternalInput(networkClientData)
 	KeyboardAndMouseInput:updateFromExternalInput(networkClientData)
 
-	if self.isRemote then
+	if self:isRemote() then
 		local inputs = networkClientData:split(':')
-		local message = inputs[1]
-		local data = inputs[2]
 
-		if message == 'jump' then
-			self.lastShouldJump = true
-		end
-		if message == 'shoot' then
-			self.lastShouldShoot = true
-		end
-		if message == 'direction' then
-			self.lastDirection = data
-		end
-		if message == 'armAngle' then
-			self.lastArmAngle = tonumber(data)
-		end
+		-- if this is a remote client with the id we handle here
+		if inputs[1] == self.clientID then
+			local message = inputs[2]
+			local data = inputs[3]
+
+			if message == 'jump' then
+				self.lastShouldJump = true
+			end
+			if message == 'shoot' then
+				self.lastShouldShoot = true
+			end
+			if message == 'direction' then
+				self.lastDirection = data
+			end
+			if message == 'armAngle' then
+				self.lastArmAngle = tonumber(data)
+			end
+		end		
 	end
 end
 
 function NetworkInput:shouldJump()
 	self.lastShouldJump = false
 
-	if not self.isRemote then
+	if not self:isRemote() then
 		local shouldJump = KeyboardAndMouseInput:shouldJump()
 
 		if shouldJump then
@@ -63,7 +70,7 @@ end
 function NetworkInput:shouldShoot()
   self.lastShouldShoot = false
 
-  if not self.isRemote then
+  if not self:isRemote() then
   	local shouldShoot = KeyboardAndMouseInput:shouldShoot()
 
   	if shouldShoot then
@@ -76,7 +83,7 @@ function NetworkInput:shouldShoot()
 end
 
 function NetworkInput:getDirection()
-	if not self.isRemote then
+	if not self:isRemote() then
 		local direction = KeyboardAndMouseInput:getDirection()
 
 		if ( direction ~= self.lastDirection ) then
@@ -89,7 +96,7 @@ function NetworkInput:getDirection()
 end
 
 function NetworkInput:getArmAngle()
-	if not self.isRemote then
+	if not self:isRemote() then
 		local armAngle = KeyboardAndMouseInput:getArmAngle(0, 0)
 
 		if ( armAngle ~= self.lastArmAngle ) then

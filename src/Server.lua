@@ -40,19 +40,27 @@ function Server:update( dt )
 	self.server:update(dt)
 end
 
-function Server:sendBroadcast(data, senderClientID)
-	-- send message to all except for one
+function Server:sendTransport(data, senderClientID)
 	if data then
 		for key, value in pairs(self.clientIds) do
-			if ( key ~= senderClientID ) then
+			if key ~= senderClientID then
+				print("Transport.", "Data: ", data)
 				self.server:send(data, key)
 			end
 		end
 	end
 end
+function Server:sendBroadcast(data, senderClientID)
+	-- send message to all except for one
+	if data then
+		data = Constants.NET.ID_SERVER .. data
+		self:sendTransport(data, senderClientID)
+	end
+end
 function Server:sendMessage(data, receiverClientID)
 	-- send message to one client
 	print("Message to client.", "ID:", receiverClientID, "Data:", data)
+	data = Constants.NET.ID_SERVER .. data
 	self.server:send(data, receiverClientID)
 end
 
