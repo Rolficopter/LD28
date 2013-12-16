@@ -30,6 +30,7 @@ end
 -- Init logic
 function Player:initialize(world, x, y, inputSource)
   Entity:initialize(world)
+  assert(inputSource:isInstanceOf(InputSource), "Specify a input source!")
 
   self.inputSource = inputSource
   self.body = love.physics.newBody(self:getWorld(), x, y, 'dynamic')
