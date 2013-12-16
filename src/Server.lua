@@ -101,7 +101,7 @@ function Server:onData(data, clientID)
 		return
 	end
 
-	self:sendBroadcast(data, clientID)
+	self:sendTransport(data, clientID)
 end
 
 return Server
