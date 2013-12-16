@@ -39,7 +39,7 @@ function AIInput:shouldShoot()
 		for j, player in pairs( self.world.players) do
 			if ent.x >= player.body:getX() and ent.x <= player.body:getX() + Constants.SIZES.PLAYER.X and ent.y >= player.body:getY() and ent.y <= player.body:getY() + Constants.SIZES.PLAYER.Y  then
 				armRotation = (360-(i-1)*5)/angle2Rad
-				print("-----------")
+				-- print("-----------")
 				return true
 			end
 	end
@@ -51,7 +51,7 @@ function AIInput:getDirection()
 
   if(os.clock() - self.timeStart > 5) then
     self.direction = InputSource.Direction.none
-    print(os.clock())
+    -- print(os.clock())
 	self.timeStart = os.clock()
 	local random = math.random(4)
     --if random == 0 then
