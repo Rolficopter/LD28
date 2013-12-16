@@ -13,23 +13,48 @@ local Player = require 'Player'
 local Bullet = require 'Bullet'
 local AIInput = require 'input/AIInput'
 local NetworkInput = require 'input/NetworkInput'
+local KeyboardAndMouseInput = require 'input/KeyboardAndMouseInput'
 
 local atl = require 'lib/advanced-tiled-loader/Loader'
 
 World = class('World', Drawable)
-
+local instance = nil
 function World:initialize(networkClient)
   self.entities = {}
+  self.players = {}
   self.networkClient = networkClient
 
   -- load world
   love.physics.setMeter(Constants.SIZES.METER)
   self.world = love.physics.newWorld(Constants.GRAVITY.X * Constants.SIZES.METER, Constants.GRAVITY.Y * Constants.SIZES.METER, true)
+  self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
   -- load map
   atl.path = Constants.ASSETS.MAPS
   self.map = nil
   self:loadMap('Map.tmx')
+
+  instance = self
+end
+
+function beginContact(a, b, coll)
+  for i, ent in pairs( instance.entities ) do
+    ent:worldCollisionBeginContact(a, b, coll)
+  end
+end
+
+function endContact(a, b, coll)
+  for i, ent in pairs( instance.entities ) do
+    ent:worldCollisionEndContact(a, b, coll)
+  end
+end
+
+function preSolve(a, b, coll)
+    
+end
+
+function postSolve(a, b, coll)
+    
 end
 
 -- Load map
@@ -56,8 +81,7 @@ function World:loadMap(name)
   local randomSpawnNumber2 = math.random(1, table.getn(spawns))
   playerLocationObject2 = spawns[randomSpawnNumber2]
 
-  self.players = {}
-  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
+  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new(self))
   self.player2 = Player:new(self, playerLocationObject2.x, playerLocationObject2.y, AIInput:new(self))
   table.insert(self.entities, self.player)
   table.insert(self.entities, self.player2)

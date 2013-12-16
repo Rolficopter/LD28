@@ -3,29 +3,6 @@ local Entity = require 'Entity'
 
 Player = class('Player', Entity)
 
-local instance = nil
--- Callbacks
-local _checkForGroundCollision = function(a, b, coll, begin)
-  if a == instance.groundSensor.fixture or b == instance.groundSensor.fixture then
-
-    if a == instance.groundSensor.fixture then
-      if b:getUserData() == "map" then
-        instance.onGround = begin
-      end
-    elseif b == instance.groundSensor.fixture then
-      if a:getUserData() == "map" then
-        instance.onGround = begin
-      end
-    end
-
-  end
-end
-local _worldCollision_BeginContact = function(a, b, coll)
-  _checkForGroundCollision(a, b, coll, true)
-end
-local _worldCollision_EndContact = function(a, b, coll)
-  _checkForGroundCollision(a, b, coll, false)
-end
 
 -- Init logic
 function Player:initialize(world, x, y, inputSource)
@@ -46,8 +23,6 @@ function Player:initialize(world, x, y, inputSource)
   self.groundSensor.fixture:setFriction(0)
   self.groundSensor.fixture:setSensor(true)
   self.groundSensor.joint = love.physics.newWeldJoint(self.body, self.groundSensor.body, self.body:getX(), self.body:getY(), false)
-  self:getWorld():setCallbacks(_worldCollision_BeginContact, _worldCollision_EndContact, nil, nil)
-  instance = self
 
   self.bodyTexture = love.graphics.newImage('assets/textures/player/body.png')
   self.armTexture = love.graphics.newImage('assets/textures/player/arm.png')
@@ -69,6 +44,30 @@ function Player:initialize(world, x, y, inputSource)
   self.rightGoingLeft = true
 
   self.canShoot = true
+end
+
+function Player:worldCollisionBeginContact(a, b, coll)
+  self:checkForGroundCollision(a, b, coll, true)
+end
+
+function Player:worldCollisionEndContact(a, b, coll)
+  self:checkForGroundCollision(a, b, coll, false)
+end
+
+function Player:checkForGroundCollision(a, b, coll, begin)
+
+  if a == self.groundSensor.fixture or b == self.groundSensor.fixture then
+    if a == self.groundSensor.fixture then
+      if b:getUserData() == "map" then
+        self.onGround = begin
+      end
+    elseif b == self.groundSensor.fixture then
+      if a:getUserData() == "map" then
+        self.onGround = begin
+      end
+    end
+
+  end
 end
 
 function Player:update(dt)
@@ -146,7 +145,7 @@ function Player:update(dt)
       local bulletRotation = self.inputSource:getArmAngle(0, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
       local magicNumber = 35
       self.world = self.world:insertBullet(bulletRotation, baseX - math.cos(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_X_OFFSET + 10, baseY - math.sin(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_Y_OFFSET - self.leftWeaponTexture:getHeight() * scaleWeaponY / 2)
-      --self.canShoot = false
+      self.canShoot = false
     end
   end
 end
@@ -171,20 +170,6 @@ function Player:render()
 
   local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
   local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
-local angle2Rad = math.pi/180
-   for i = 0, 360, 5 do
-	  local x = math.cos(angle2Rad*i) * 200
-	  local y = math.sin(angle2Rad*i) * 200
-  love.graphics.setLineWidth(3)
-    love.graphics.setColor(255, 0, 0, 255)
-    love.graphics.line(
-		  self.body:getX()+x/1.5,
-		  self.body:getY()+y/1.5,
-		  self.body:getX()+2*x,
-	  self.body:getY()+2*y)
-	  love.graphics.setLineWidth(1)
-	end
-
 
 
   love.graphics.draw(self.bodyTexture, baseX, baseY, 0, scaleBodyX, scaleBodyY)

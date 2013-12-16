@@ -37,6 +37,14 @@ function Entity:render()
   end
 end
 
+function Entity:worldCollisionBeginContact(a, b, coll)
+  --stub
+end
+
+function Entity:worldCollisionEndContact(a, b, coll)
+  --stub
+end
+
 function Entity:destroy()
   if self.fixture then
     self.fixture:destry()
