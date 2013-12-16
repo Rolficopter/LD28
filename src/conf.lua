@@ -1,6 +1,6 @@
 Constants = {}
 Constants.DEBUG = true
-Constants.TITLE = "LD48"
+Constants.TITLE = "World Of One"
 Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
 Constants.VERSION = "0.0.3"
