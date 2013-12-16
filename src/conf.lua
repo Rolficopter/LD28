@@ -3,7 +3,7 @@ Constants.DEBUG = true
 Constants.TITLE = "LD48"
 Constants.AUTHOR = "Ludum Rolfing"
 Constants.WEBSITE = "https://github.com/LudumRolfing/LD28"
-Constants.VERSION = "0.0.2"
+Constants.VERSION = "0.0.3"
 Constants.LOVE_VERSION = "0.8.0"
 
 Constants.NET = {}
