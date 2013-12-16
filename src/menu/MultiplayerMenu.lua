@@ -25,7 +25,7 @@ function MultiplayerMenu:initClient(ip)
 	local success, err = self.client:connect(ip, Constants.NET.PORT)
 
 	if ( not success ) then
-		error(err)
+		error("Connection error: " .. err)
 	else
 		print("Connected to server " .. ip .. ":" .. Constants.NET.PORT .. ".")
 		self.client:send(Constants.NET.PING.MSG)
