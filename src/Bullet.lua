@@ -14,6 +14,7 @@ function Bullet:initialize(gameWorld, x, y, angle)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.BULLET.X, Constants.SIZES.BULLET.Y)
   self.color = { 0, 0, 0, 255 }
   self:createFixture()
+  self.fixture:setUserData("bullet")
 
   self.body:setGravityScale(0)
   if angle < math.pi then

@@ -8,14 +8,14 @@ local instance = nil
 local _checkForGroundCollision = function(a, b, coll, begin)
   if a == instance.groundSensor.fixture or b == instance.groundSensor.fixture then
 
+    local userData = nil
     if a == instance.groundSensor.fixture then
-      if b:getUserData() == "map" then
-        instance.onGround = begin
-      end
+      userData = b:getUserData()
     elseif b == instance.groundSensor.fixture then
-      if a:getUserData() == "map" then
-        instance.onGround = begin
-      end
+      userData = a:getUserData()
+    end
+    if userData == "map" or userData == "player" or userData == "bullet" then
+      instance.onGround = begin
     end
 
   end
@@ -38,6 +38,7 @@ function Player:initialize(world, x, y, inputSource)
   self.body:setFixedRotation(true)
   self.shape = love.physics.newRectangleShape(Constants.SIZES.PLAYER.X, Constants.SIZES.PLAYER.Y)
   self:createFixture()
+  self.fixture:setUserData('player')
   self.fixture:setFriction(self.fixture:getFriction() * 1.75)
   -- jump sensor
   self.groundSensor = {}
