@@ -67,6 +67,8 @@ function Player:initialize(world, x, y, inputSource)
 
   self.leftGoingLeft = true
   self.rightGoingLeft = true
+
+  self.canShoot = true
 end
 
 function Player:update(dt)
@@ -140,10 +142,11 @@ function Player:update(dt)
 
   -- Determine if Player shot
   if self.inputSource:shouldShoot() then
-    if self.world then
+    if self.world and self.canShoot then
       local bulletRotation = self.inputSource:getArmAngle(0, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
       local magicNumber = 35
       self.world = self.world:insertBullet(bulletRotation, baseX - math.cos(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_X_OFFSET + 10, baseY - math.sin(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_Y_OFFSET - self.leftWeaponTexture:getHeight() * scaleWeaponY / 2)
+      self.canShoot = false
     end
   end
 end
