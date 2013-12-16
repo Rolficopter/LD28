@@ -130,23 +130,22 @@ function Player:update(dt)
     end
   end
 
-   local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
-   local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
-   local scaleArmX = self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getWidth()
-   local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
+  local baseX = self.body:getX() - Constants.SIZES.PLAYER.X / 2
+  local baseY = self.body:getY() - Constants.SIZES.PLAYER.Y / 2
+  local scaleArmX = self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getWidth()
+  local scaleArmY = self.armTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.armTexture:getHeight()
+  local scaleWeaponX = self.rightWeaponTexture:getWidth() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getWidth()
+  local scaleWeaponY = self.rightWeaponTexture:getHeight() / Constants.SIZES.PLAYER.SCALE / self.rightWeaponTexture:getHeight()
+   
+  self.armRotationLeft = self.inputSource:getArmAngle(Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET + self.armTexture:getWidth() * scaleArmX / 2)
+  self.armRotationRight = self.inputSource:getArmAngle(-Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
 
-   self.armRotationLeft = self.inputSource:getArmAngle(Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET + self.armTexture:getWidth() * scaleArmX / 2)
-   self.armRotationRight = self.inputSource:getArmAngle(-Constants.SIZES.PLAYER.ARM_X_OFFSET, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
-
- -- Determine if Player shot
+  -- Determine if Player shot
   if love.mouse.isDown("l") then
     if self.world then
-
-	  if love.mouse.getX() > love.graphics.getWidth() / 2 then
-		  self.world = self.world:insertBullet(self.armRotationLeft, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 + self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE + 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET)
-	  else
-		  self.world = self.world:insertBullet(self.armRotationRight, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 - self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE - 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET)
-	  end
+      local bulletRotation = self.inputSource:getArmAngle(0, -Constants.SIZES.PLAYER.ARM_Y_OFFSET)
+      local magicNumber = 35
+      self.world = self.world:insertBullet(bulletRotation, baseX - math.cos(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_X_OFFSET + 10, baseY - math.sin(bulletRotation) * magicNumber + Constants.SIZES.PLAYER.ARM_Y_OFFSET - self.leftWeaponTexture:getHeight() * scaleWeaponY / 2)
     end
   end
 end
@@ -175,15 +174,16 @@ function Player:render()
   love.graphics.draw(self.bodyTexture, baseX, baseY, 0, scaleBodyX, scaleBodyY)
   love.graphics.draw(self.leftLegTexture, baseX - Constants.SIZES.PLAYER.LEG_X_OFFSET + self.leftLegTexture:getWidth() * scaleLeftLegX + 12.5, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.leftLegRotation, scaleLeftLegX, scaleLeftLegY, self.leftLegTexture:getWidth() / 2, 2)
   love.graphics.draw(self.rightLegTexture, baseX + Constants.SIZES.PLAYER.LEG_X_OFFSET + self.rightLegTexture:getWidth() * scaleRightLegX + 10, baseY + Constants.SIZES.PLAYER.LEG_Y_OFFSET, self.rightLegRotation, scaleRightLegX, scaleRightLegY, self.rightLegTexture:getWidth() / 2, 2)
+  local weaponAngle = self.inputSource:getArmAngle(0, -Constants.SIZES.PLAYER.ARM_Y_OFFSET) - 1.5 * math.pi
 
-  if love.mouse.getX() > love.graphics.getWidth() / 2 then
-	  love.graphics.draw(self.armTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleArmX, scaleArmY, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
-	  love.graphics.draw(self.leftWeaponTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 + self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE + 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleWeaponX, scaleWeaponY, self.leftWeaponTexture:getWidth(), self.leftWeaponTexture:getHeight()/2)
-	  love.graphics.draw(self.armTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleArmX, scaleArmX, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+  if not ((weaponAngle > 0 and weaponAngle < math.pi * 0.5) or  (weaponAngle > -(1.5 * math.pi) and weaponAngle < -math.pi)) then
+    love.graphics.draw(self.armTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleArmX, scaleArmY, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+    love.graphics.draw(self.leftWeaponTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 + self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE + 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleWeaponX, scaleWeaponY, self.leftWeaponTexture:getWidth(), self.leftWeaponTexture:getHeight()/2)
+    love.graphics.draw(self.armTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleArmX, scaleArmX, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
   else
-	  love.graphics.draw(self.armTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleArmX, scaleArmX, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
-	  love.graphics.draw(self.rightWeaponTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 - self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE - 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleWeaponX, scaleWeaponY, self.rightWeaponTexture:getWidth(), self.rightWeaponTexture:getHeight()/2)
-	  love.graphics.draw(self.armTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleArmX, scaleArmY, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+    love.graphics.draw(self.armTexture, baseX - Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleArmX, scaleArmX, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
+    love.graphics.draw(self.rightWeaponTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5 - self.armTexture:getWidth() / Constants.SIZES.PLAYER.SCALE - 3, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationRight, scaleWeaponX, scaleWeaponY, self.rightWeaponTexture:getWidth(), self.rightWeaponTexture:getHeight()/2)
+    love.graphics.draw(self.armTexture, baseX + Constants.SIZES.PLAYER.ARM_X_OFFSET + self.armTexture:getWidth() * scaleArmX - 5, baseY + Constants.SIZES.PLAYER.ARM_Y_OFFSET, self.armRotationLeft, scaleArmX, scaleArmY, self.armTexture:getWidth(), self.armTexture:getHeight() / 2)
   end
 end
 
