@@ -38,7 +38,12 @@ end
 
 function Server:getUUID(clientID)
 	if not self.UUIDs[clientID] then
-		self.UUIDs[clientID] = table.getn(self.UUIDs) + 1 -- 0 is server
+		local i = 1 -- 0 is server
+		for k, v in pairs(self.UUIDs) do
+			i = i + 1
+		end
+		print("UUID:", i)
+		self.UUIDs[clientID] = i
 	end
 
 	return self.UUIDs[clientID]
