@@ -63,6 +63,7 @@ end
 function World:sendMessage(message, data)
   local msg = self.clientID .. ':' .. message
   if data then
+    data = tostring(data)
     msg = msg .. ':' .. data
   end
 
