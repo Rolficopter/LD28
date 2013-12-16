@@ -143,6 +143,11 @@ local updateWithNetworkInput = function(self, input)
       local mapName = data
       self:loadMap(mapName .. '.tmx')
     end
+    if message = 'ShootReset' then
+      for id, p in pairs(self.players) do
+        p.canShoot = true
+      end
+    end
     if message == 'Player' then
       data = data:split(",")
       local clientID = data[1]
@@ -198,9 +203,10 @@ function World:update(dt)
   end
 
   if allShot then
-    for i, p in pairs(self.players) do
+    for id, p in pairs(self.players) do
       p.canShoot = true
       -- TODO: can shoot broadcast!
+      -- see Server.lua:update(dt)
     end
   end
 end

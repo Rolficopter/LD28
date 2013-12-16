@@ -34,6 +34,7 @@ function Server:initialize()
 	initServer(self)
 	self.clientIds = {}
 	self.UUIDs = {}
+	self.shootablePlayers = 0
 end
 
 function Server:getUUID(clientID)
@@ -98,6 +99,7 @@ function Server:onNewClient(clientID)
 	-- setup new client
 	self:sendMessage('ID:' .. self:getUUID(clientID), clientID)
 	self:sendMessage('Map:Map', clientID) -- let him load the maps
+	self.shootablePlayers = self.shootablePlayers + 1
 	-- notify other clients when we know the new one's x and y
 	-- other clients are unknown at this time...
 end
@@ -119,6 +121,14 @@ function Server:onData(data, clientID)
 	local id, message, messageData = inputs[1], inputs[2], inputs[3]
 	if message == 'Player' then
 		self:sendBroadcast('Player' .. ':' .. messageData, clientID)
+	elseif message = 'shoot' then
+		self.shootablePlayers = self.shootablePlayers - 1
+
+		if self.shootablePlayers == 0 then
+			self.shootablePlayers = table.getn(self.clientIds)
+
+			self.sendBroadcast('ShootReset')
+		end
 	else
 		self:sendTransport(data, clientID)
 	end
