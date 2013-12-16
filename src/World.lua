@@ -101,9 +101,20 @@ end
 
 -- Update logic
 local updateWithNetworkInput = function(self, input)
-  if string.starts(input, "Map") then
+  local inputs = input:split(":")
+
+  if inputs[1] == "Map" then
     local mapName = string.sub(input, 5, string.len(input))
     self:loadMap(mapName .. '.tmx')
+  end
+  if inputs[1] == "Player" then
+    local data = inputs[2]:split(",")
+    local spawnX = tonumber(inputs[1])
+    local spawnY = tonumber(inputs[2])
+    print("Player spawn at:", spawnX, spawnY)
+
+    local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, false))
+    table.insert(self.entities, self.player)
   end
 end
 function World:update(dt)
