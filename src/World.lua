@@ -18,7 +18,7 @@ function World:initialize(networkClient)
   self.entities = {}
   self.players = {}
   self.networkClient = networkClient
-  self.clientID = nil
+  self.clientID = nil -- is the server uuid
 
   -- load world
   love.physics.setMeter(Constants.SIZES.METER)
@@ -60,6 +60,16 @@ function postSolve(a, b, coll)
 
 end
 
+function World:sendMessage(message, data)
+  local msg = self.clientID .. ':' .. message
+  if data then
+    msg = msg .. ':' .. data
+  end
+
+  print("Sending " .. message .. ", data:", data)
+  self.networkClient:send(msg)
+end
+
 -- Load map
 function World:loadMap(name)
   print("Loading map", name)
@@ -96,7 +106,7 @@ function World:loadMap(name)
     self.entities[self.clientID] = self.player
     -- other players created on message
 
-    self.networkClient:send('Player:' .. self.clientID .. "," .. playerLocationObject.x .. "," .. playerLocationObject.y)
+    self:sendMessage('Player', self.clientID .. "," .. playerLocationObject.x .. "," .. playerLocationObject.y)
   end
 
   print("Map loaded.")
@@ -106,7 +116,7 @@ end
 function World:insertBullet(angle, posX, posY)
   table.insert(self.entities, Bullet:new(self, posX, posY, angle))
   if self:isNetworkedWorld() then
-    self.networkClient:send('Bullet:' .. angle .. ',' .. posX .. ',' .. posY)
+    self:sendMessage('Bullet', angle .. ',' .. posX .. ',' .. posY)
   end
   return self
 end
