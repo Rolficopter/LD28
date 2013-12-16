@@ -114,7 +114,14 @@ function Server:onData(data, clientID)
 		return
 	end
 
-	self:sendTransport(data, clientID)
+	print("Received:", data)
+	local inputs = data:split(':')
+	local id, message, data = inputs[1], inputs[2], inputs[3]
+	if message == 'Player' then
+		self:sendBroadcast(message .. ':' .. data, clientID)
+	else
+		self:sendTransport(data, clientID)
+	end
 end
 
 return Server
