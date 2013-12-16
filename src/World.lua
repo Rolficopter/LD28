@@ -123,9 +123,9 @@ function World:update(dt)
   end
 
   for id, player in pairs( self.players ) do
-    if networkData and ent.inputSource then
+    if networkData and player.inputSource then
       print("Update input source")
-      ent.inputSource:updateFromExternalInput(networkData)
+      player.inputSource:updateFromExternalInput(networkData)
     end
 
     player:update(dt)
