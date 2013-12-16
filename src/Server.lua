@@ -74,8 +74,10 @@ end
 function Server:onNewClient(clientID)
 	print("New client:", clientID)
 
+	-- setup new client
 	self:sendMessage('ID:' .. clientID, clientID)
-	self:sendMessage('Map:Map', clientID)
+	self:sendMessage('Map:Map', clientID) -- let him load the maps
+	-- notify other clients when we know the new one's x and y
 
 	local spawnX = 24.594 * Constants.SIZES.METER
 	local spawnY = 33.406 * Constants.SIZES.METER
