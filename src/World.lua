@@ -145,11 +145,7 @@ local updateWithNetworkInput = function(self, input)
       local spawnX = tonumber(data[2])
       local spawnY = tonumber(data[3])
 
-      if ( clientID == self.clientID ) then
-        return
-      end
-      self:announceOwnPlayer()
-
+      -- if we already know the player, he's not new
       for id, player in pairs(self.players) do
         if id == clientID then
           player.body:setX(spawnX)
@@ -158,8 +154,12 @@ local updateWithNetworkInput = function(self, input)
           return
         end
       end
+      -- new players should know us!
+      self:announceOwnPlayer()
 
-      local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, clientID))
+      print("New player with id", clientID, " at ", spawnX .. "," .. spawnY)
+
+      local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, true, clientID))
       self.players[clientID] = player
     end
   end
