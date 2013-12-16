@@ -29,7 +29,10 @@ function World:initialize(networkClient)
   -- load map
   atl.path = Constants.ASSETS.MAPS
   self.map = nil
-  self:loadMap('Map.tmx')
+
+  if not self:isNetworkedWorld() then
+    self:loadMap('Map.tmx')
+  end
 end
 function World:isNetworkedWorld()
   return self.networkClient ~= nil
