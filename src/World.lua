@@ -14,6 +14,7 @@ World = class('World', Drawable)
 function World:initialize(networkClient)
   self.entities = {}
   self.networkClient = networkClient
+  self.clientID = nil
 
   -- load world
   love.physics.setMeter(Constants.SIZES.METER)
@@ -63,6 +64,8 @@ function World:loadMap(name)
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false))
     table.insert(self.entities, self.player)
     -- other players created on message
+
+    self.networkClient:send('Player:' .. self.clientID .. "," .. playerLocationObject.x .. "," .. playerLocationObject.y)
   end
 
   print("Map loaded.")
@@ -81,6 +84,9 @@ end
 local updateWithNetworkInput = function(self, input)
   local inputs = input:split(":")
 
+  if inputs[1] == "ID" then
+    self.clientID = inputs[2]
+  end
   if inputs[1] == "Map" then
     local mapName = string.sub(input, 5, string.len(input))
     self:loadMap(mapName .. '.tmx')
