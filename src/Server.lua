@@ -78,10 +78,7 @@ function Server:onNewClient(clientID)
 	self:sendMessage('ID:' .. clientID, clientID)
 	self:sendMessage('Map:Map', clientID) -- let him load the maps
 	-- notify other clients when we know the new one's x and y
-
-	local spawnX = 24.594 * Constants.SIZES.METER
-	local spawnY = 33.406 * Constants.SIZES.METER
-	self:sendMessage('Player:Test,' .. spawnX .. "," .. spawnY, clientID)
+	-- other clients are unknown at this time...
 end
 -- disconnect
 function Server:onClientLost(clientID)
