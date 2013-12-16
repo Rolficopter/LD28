@@ -107,8 +107,9 @@ local updateWithNetworkInput = function(self, input)
   end
 end
 function World:update(dt)
+  local networkData = nil
   if self:isNetworkedWorld() then
-    local networkData = self.networkClient:receive()
+    networkData = self.networkClient:receive()
     if networkData then
       -- print(networkData)
       updateWithNetworkInput(self, networkData)
@@ -116,7 +117,7 @@ function World:update(dt)
   end
 
   for i, ent in pairs( self.entities ) do
-    if networkData then
+    if networkData and ent.inputSource then
       print("Update input source")
       ent.inputSource:updateFromExternalInput(networkData)
     end
