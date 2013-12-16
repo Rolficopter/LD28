@@ -39,7 +39,7 @@ end
 
 function Entity:destroy()
   if self.fixture then
-    self.fixture:destry()
+    self.fixture:destroy()
   end
 
   if self.body then
