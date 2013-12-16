@@ -38,11 +38,11 @@ module.exports = function(grunt) {
         command: function() {
           switch ( require('os').platform() ) {
             case 'win32': // windows
-              return 'love /src --console';
+              return 'love ./src --console';
             case 'darwin': // os x
-              return '/Applications/love.app/Contents/MacOS/love src/';
+              return '/Applications/love.app/Contents/MacOS/love ./src';
             default:
-              return 'love src/';
+              return 'love ./src';
           }
         }
       }
