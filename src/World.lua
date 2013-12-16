@@ -116,7 +116,7 @@ function World:update(dt)
   end
 
   for i, ent in pairs( self.entities ) do
-    if ent.inputSource and networkData then
+    if networkData then
       print("Update input source")
       ent.inputSource:updateFromExternalInput(networkData)
     end
