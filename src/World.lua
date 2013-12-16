@@ -69,6 +69,9 @@ function World:sendMessage(message, data)
   print("Sending " .. message .. ", data:", data)
   self.networkClient:send(msg)
 end
+function World:announceOwnPlayer()
+  self:sendMessage('Player', self.clientID .. "," .. self.player.body:getX() .. "," .. self.player.body:getY())
+end
 
 -- Load map
 function World:loadMap(name)
@@ -106,7 +109,7 @@ function World:loadMap(name)
     self.entities[self.clientID] = self.player
     -- other players created on message
 
-    self:sendMessage('Player', self.clientID .. "," .. playerLocationObject.x .. "," .. playerLocationObject.y)
+    self:announceOwnPlayer()
   end
 
   print("Map loaded.")
@@ -142,6 +145,11 @@ local updateWithNetworkInput = function(self, input)
       local spawnX = tonumber(data[2])
       local spawnY = tonumber(data[3])
 
+      if ( clientID == self.clientID ) then
+        return
+      end
+      self:announceOwnPlayer()
+
       for id, player in pairs(self.players) do
         if id == clientID then
           player.body:setX(spawnX)
@@ -161,7 +169,7 @@ function World:update(dt)
   if self:isNetworkedWorld() then
     networkData = self.networkClient:receive()
     if networkData then
-      -- print(networkData)
+      print("Received:", networkData)
       updateWithNetworkInput(self, networkData)
     end
   end
