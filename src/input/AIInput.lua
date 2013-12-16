@@ -96,7 +96,7 @@ function worldRayCastCallback(fixture, x, y, xn, yn, fraction)
     local hit = {}
     hit.x, hit.y = x, y
     table.insert(Ray.hitList, hit)
-    return 0 -- Continues with ray cast through all shapes.
+    return 1 -- Continues with ray cast through all shapes.
 end
 
 return AIInput
