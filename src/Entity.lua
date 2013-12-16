@@ -37,4 +37,14 @@ function Entity:render()
   end
 end
 
+function Entity:destroy()
+  if self.fixture then
+    self.fixture:destry()
+  end
+
+  if self.body then
+    self.body:destroy()
+  end
+end
+
 return Entity
