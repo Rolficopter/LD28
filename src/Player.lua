@@ -125,6 +125,7 @@ function Player:update(dt)
   -- Y
   if self.inputSource:shouldJump() then
     if self.onGround then
+      self.onGround = false
       self.body:applyLinearImpulse(0, Constants.SIZES.PLAYER.JUMP)
     end
   end
