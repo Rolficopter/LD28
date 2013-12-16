@@ -9,6 +9,7 @@ local initServer = function(self)
 	self.server.handshake = Constants.NET.HANDSHAKE
 	self.server:setPing(true, Constants.NET.PING.TIMEOUT * 3, Constants.NET.PING.MSG)
 	self.server:listen(Constants.NET.PORT)
+	print("Server listening on port " .. Constants.NET.PORT .. ".")
 end
 function Server:initialize()
 	Updateable:initialize()

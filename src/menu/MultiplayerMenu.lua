@@ -26,6 +26,8 @@ function MultiplayerMenu:initClient(ip)
 
 	if ( not success ) then
 		error(err)
+	else
+		print("Connected to server " .. ip .. ":" .. Constants.NET.PORT .. ".")
 	end
 end
 
