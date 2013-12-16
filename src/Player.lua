@@ -44,6 +44,8 @@ function Player:initialize(world, x, y, inputSource)
   self.rightGoingLeft = true
 
   self.canShoot = true
+
+  self.points = 0
 end
 
 function Player:worldCollisionBeginContact(a, b, coll)
