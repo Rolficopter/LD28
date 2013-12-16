@@ -40,6 +40,7 @@ end
 
 -- Load map
 function World:loadMap(name)
+  print("Loading map", name)
   self.map = atl.load(name)
   self.map.drawObjects = false
 
@@ -71,6 +72,8 @@ function World:loadMap(name)
     table.insert(self.entities, self.player)
     -- other players created on message
   end
+
+  print("Map loaded.")
 end
 
 -- Insert Bullet
