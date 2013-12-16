@@ -22,7 +22,7 @@ function KeyboardAndMouseInput:shouldJump()
   return false
 end
 
-function InputSource:shouldShoot()
+function KeyboardAndMouseInput:shouldShoot()
   return love.mouse.isDown("l")
 end
 
