@@ -130,7 +130,9 @@ function World:render()
     end
   else
     -- Loading screen
-    love.graphics.printf("Waiting for server...", love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, love.graphics.getWidth() / 2, "left")
+    local font = love.graphics.getFont()
+    local text = "Waiting for server..."
+    love.graphics.printf(text, ( love.graphics.getWidth() - font:getWidth(text) ) / 2, love.graphics.getHeight() / 2, love.graphics.getWidth() / 2, "left")
   end
 end
 
