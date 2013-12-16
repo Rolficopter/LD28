@@ -12,6 +12,8 @@ local atl = require 'lib/advanced-tiled-loader/Loader'
 World = class('World', Drawable)
 
 function World:initialize(networkClient)
+  self.player = nil
+  self.players = {}
   self.entities = {}
   self.networkClient = networkClient
   self.clientID = nil
@@ -57,12 +59,12 @@ function World:loadMap(name)
 
   if not self:isNetworkedWorld() then
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
-    table.insert(self.entities, self.player)
+    table.insert(self.players, self.player)
     local ai = Player:new(self, playerLocationObject.x, playerLocationObject.y, AIInput:new(self))
-    table.insert(self.entities, ai)
+    table.insert(self.players, ai)
   else
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false))
-    table.insert(self.entities, self.player)
+    self.entities[self.clientID] = self.player
     -- other players created on message
 
     self.networkClient:send('Player:' .. self.clientID .. "," .. playerLocationObject.x .. "," .. playerLocationObject.y)
@@ -93,12 +95,21 @@ local updateWithNetworkInput = function(self, input)
   end
   if inputs[1] == "Player" then
     local data = inputs[2]:split(",")
-    local spawnX = tonumber(inputs[1])
-    local spawnY = tonumber(inputs[2])
-    print("Player spawn at:", spawnX, spawnY)
+    local clientID = inputs[1]
+    local spawnX = tonumber(inputs[2])
+    local spawnY = tonumber(inputs[3])
+
+    for id, player in pairs(self.players) do
+      if id == clientID then
+        player.body:setX(spawnX)
+        player.body:setY(spawnY)
+
+        return
+      end
+    end
 
     local player = Player:new(self, spawnX, spawnY, NetworkInput:new(self, self.networkClient, false))
-    table.insert(self.entities, self.player)
+    self.players[clientID] = player
   end
 end
 function World:update(dt)
@@ -111,12 +122,15 @@ function World:update(dt)
     end
   end
 
-  for i, ent in pairs( self.entities ) do
+  for id, player in pairs( self.players ) do
     if networkData and ent.inputSource then
       print("Update input source")
       ent.inputSource:updateFromExternalInput(networkData)
     end
 
+    player:update(dt)
+  end
+  for i, ent in pairs( self.entities ) do
     ent:update(dt)
   end
 
@@ -138,6 +152,9 @@ function World:render()
     self.map:autoDrawRange(translateX, translateY, 1, 0)
     self.map:draw()
 
+    for id, player in pairs( self.players ) do
+      player:render()
+    end
     for i, ent in pairs( self.entities ) do
       ent:render()
     end
