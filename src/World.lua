@@ -31,6 +31,9 @@ function World:initialize(networkClient)
   self.map = nil
   self:loadMap('Map.tmx')
 end
+function World:isNetworkedWorld()
+  return self.networkClient ~= nil
+end
 
 -- Load map
 function World:loadMap(name)
@@ -54,9 +57,17 @@ function World:loadMap(name)
   local randomSpawnNumber = math.random(1, table.getn(spawns))
   playerLocationObject = spawns[randomSpawnNumber]
 
-  self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
-  table.insert(self.entities, self.player)
-  --table.insert(self.entities, Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self)))
+  if not self:isNetworkedWorld() then
+    self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
+    table.insert(self.entities, self.player)
+    -- clone for now
+    local ai = Player:new(self, playerLocationObject.x + 50, playerLocationObject.y, KeyboardAndMouseInput:new())
+    table.insert(self.entities, ai)
+  else
+    self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, NetworkInput:new(self, self.networkClient, false))
+    table.insert(self.entities, self.player)
+    -- other players created on message
+  end
 end
 
 -- Insert Bullet
@@ -75,10 +86,12 @@ local updateWithNetworkInput = function(self, input)
   end
 end
 function World:update(dt)
-  if self.networkClient then
+  if self:isNetworkedWorld() then
     local networkData = self.networkClient:receive()
     if networkData then
       print(networkData)
+
+      -- TODO parse network data and add forces etc
     end
   end
 
