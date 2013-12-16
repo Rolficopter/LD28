@@ -3,6 +3,7 @@
   main.lua
 ]]--
 
+require 'util/string-extensions'
 class = require 'lib/middleclass'
 require 'lib/middleclass-commons'
 
