@@ -57,7 +57,7 @@ function NetworkInput:shouldJump()
 	if not self:isRemote() then
 		local shouldJump = KeyboardAndMouseInput:shouldJump()
 
-		if shouldJump and self.lastShouldJump ~= shouldJump then
+		if self.lastShouldJump ~= shouldJump then
 			self.lastShouldJump = shouldJump
 			self:sendMessage('jump')
 		end
@@ -70,7 +70,7 @@ function NetworkInput:shouldShoot()
   if not self:isRemote() then
   	local shouldShoot = KeyboardAndMouseInput:shouldShoot()
 
-  	if shouldShoot and self.lastShouldShoot ~= shouldShoot then
+  	if self.lastShouldShoot ~= shouldShoot then
   		self.lastShouldShoot = shouldShoot
   		self:sendMessage('shoot')
   	end
