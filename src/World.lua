@@ -112,9 +112,11 @@ end
 
 -- Render logic
 function World:render()
+  local translateX = 0
+  local translateY = 0
   if self.player then
-    local translateX = Constants.SCREEN.WIDTH / 2 - self.player.body:getX()
-    local translateY = Constants.SCREEN.HEIGHT / 2 - self.player.body:getY()
+    translateX = Constants.SCREEN.WIDTH / 2 - self.player.body:getX()
+    translateY = Constants.SCREEN.HEIGHT / 2 - self.player.body:getY()
 
     love.graphics.translate(translateX, translateY)
   end
