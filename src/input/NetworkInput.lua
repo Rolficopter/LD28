@@ -43,6 +43,21 @@ function NetworkInput:shouldJump()
 	return self.lastShouldJump
 end
 
+function NetworkInput:shouldShoot()
+  self.lastShouldShoot = false
+
+  if not self.isRemote then
+  	local shouldShoot = KeyboardAndMouseInput:shouldShoot()
+
+  	if shouldShoot then
+  		self.lastShouldShoot = shouldShoot
+  		self:sendMessage('shoot')
+  	end
+  end
+
+  return self.lastShouldShoot
+end
+
 function NetworkInput:getDirection()
 	if not self.isRemote then
 		local direction = KeyboardAndMouseInput:getDirection()
