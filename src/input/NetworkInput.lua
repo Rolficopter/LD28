@@ -2,8 +2,9 @@ local KeyboardAndMouseInput = require 'input/KeyboardAndMouseInput'
 
 NetworkInput = class('NetworkInput', KeyboardAndMouseInput)
 
-function NetworkInput:initialize(world, networkClient, remoteClientID)
+function NetworkInput:initialize(world, networkClient, isRemote, remoteClientID)
 	InputSource:initialize(world)
+	self.isRemoteClient = isRemote
 	self.clientID = remoteClientID
 	self.networkClient = networkClient
 
@@ -12,7 +13,7 @@ function NetworkInput:initialize(world, networkClient, remoteClientID)
 	self.lastShouldJump = false
 end
 function NetworkInput:isRemote()
-	return self.clientID ~= nil
+	return self.isRemoteClient
 end
 
 function NetworkInput:sendMessage(message, data)
