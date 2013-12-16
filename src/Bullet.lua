@@ -17,12 +17,12 @@ function Bullet:initialize(gameWorld, x, y, angle)
 
   self.body:setGravityScale(0)
   if angle < math.pi then
-    if(not ((angle > 0 and angle < math.pi * 0.5) or  (angle > -(1.5 * math.pi) and angle < -math.pi))) then
+    if(love.mouse.getX() > love.graphics.getWidth() / 2) then
       self.body:applyLinearImpulse(Constants.SIZES.BULLET.SPEED, -math.abs(Constants.SIZES.BULLET.SPEED * math.tan(angle)))
     else
       self.body:applyLinearImpulse(-Constants.SIZES.BULLET.SPEED, -math.abs(Constants.SIZES.BULLET.SPEED * math.tan(angle)))
     end
-  elseif(not ((angle > 0 and angle < math.pi * 0.5) or  (angle > -(1.5 * math.pi) and angle < -math.pi))) then
+  elseif(love.mouse.getX() > love.graphics.getWidth() / 2) then
     self.body:applyLinearImpulse(Constants.SIZES.BULLET.SPEED, math.abs(Constants.SIZES.BULLET.SPEED * math.tan(angle)))
   else
     self.body:applyLinearImpulse(-Constants.SIZES.BULLET.SPEED, math.abs(Constants.SIZES.BULLET.SPEED * math.tan(angle)))
