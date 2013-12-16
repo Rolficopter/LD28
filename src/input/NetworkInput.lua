@@ -19,6 +19,7 @@ end
 function NetworkInput:sendMessage(message, data)
 	local msg = self.clientID .. ':' .. message
 	if data then
+		data = tostring(data)
 		msg = msg .. ':' .. data
 	end
 
@@ -38,10 +39,18 @@ function NetworkInput:updateFromExternalInput(networkClientData)
 			local data = inputs[3]
 
 			if message == 'jump' then
-				self.lastShouldJump = true
+				if data == '1' then
+					self.lastShouldJump = true
+				else
+					self.lastShouldJump = false
+				end
 			end
 			if message == 'shoot' then
-				self.lastShouldShoot = true
+				if data == '1' then
+					self.lastShouldShoot = true
+				else
+					self.lastShouldShoot = false
+				end
 			end
 			if message == 'direction' then
 				self.lastDirection = data
@@ -59,7 +68,11 @@ function NetworkInput:shouldJump()
 
 		if self.lastShouldJump ~= shouldJump then
 			self.lastShouldJump = shouldJump
-			self:sendMessage('jump')
+			if shouldJump then
+				self:sendMessage('jump', "1")
+			else
+				self:sendMessage('jump', '0')
+			end
 		end
 	end
 
@@ -72,7 +85,11 @@ function NetworkInput:shouldShoot()
 
   	if self.lastShouldShoot ~= shouldShoot then
   		self.lastShouldShoot = shouldShoot
-  		self:sendMessage('shoot')
+  		if shouldShoot then
+			self:sendMessage('shoot', "1")
+		else
+			self:sendMessage('shoot', '0')
+		end
   	end
   end
 
