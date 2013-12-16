@@ -47,9 +47,9 @@ function MainMenu:update(dt)
     if self.currentSelection == 0 then
       self:switchToMenu(Constants.MENU.GAME.NAME)
     elseif self.currentSelection == 1 then
-      self:switchToMenu(Constants.MENU.NET.NAME, true)
+      self:switchToMenu(Constants.MENU.NET.NAME, nil)
     elseif self.currentSelection == 2 then
-      self:switchToMenu(Constants.MENU.NET.NAME, false)
+      self:switchToMenu(Constants.MENU.NET.NAME, "localhost")
     elseif self.currentSelection == 3 then
       love.event.quit()
     end
