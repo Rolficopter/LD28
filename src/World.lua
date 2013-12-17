@@ -98,7 +98,7 @@ function World:loadMap(name)
 
   if not self:isNetworkedWorld() then
     self.player = Player:new(self, playerLocationObject.x, playerLocationObject.y, KeyboardAndMouseInput:new())
-    self:addPlayer(clientID, player)
+    self:addPlayer(clientID, self.player)
 
     local randomSpawnNumber2 = math.random(1, table.getn(spawns))
     playerLocationObject2 = spawns[randomSpawnNumber2]
