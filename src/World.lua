@@ -124,8 +124,13 @@ function World:insertBullet(angle, posX, posY)
   return self
 end
 function World:addPlayer(clientID, player)
-  self.players[clientID] = player
-  self.entities[clientID] = player
+  if clientID then
+    self.players[clientID] = player
+    self.entities[clientID] = player
+  else
+    table.insert(self.players, player)
+    table.insert(self.entities, player)
+  end
 end
 
 -- Update logic
